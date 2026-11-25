@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Categoria;
 use App\Models\User;
 use App\Support\Carrito;
 use Illuminate\Pagination\Paginator;
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('components.layouts.tienda', function ($view) {
             $view->with('carritoCantidad', app(Carrito::class)->cantidad());
+            // Categorías reales para los enlaces del pie de página.
+            $view->with('categoriasPie', Categoria::orderBy('id')->get());
         });
     }
 }

@@ -4,7 +4,7 @@ Tiendita de fans de Kuromi (peluches, figuras, maquillaje y motos) con un back o
 
 > **Aviso:** proyecto escolar de fans, sin fines comerciales. Kuromi, My Melody y sus imágenes pertenecen a sus respectivos dueños (Sanrio). Las fotos de productos de terceros se usan solo como ejemplo.
 
-![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-76%20passing-1f8a5e)
+![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-89%20passing-1f8a5e)
 
 ![Portada de la tienda](docs/screenshots/tienda-portada-claro.png)
 
@@ -35,6 +35,8 @@ Tipografías: Fredoka (titulares redondeados) y Nunito (texto), empaquetadas en 
 - Vista rápida del producto en modal y ficha de producto con relacionados; fotos reales de cada producto.
 - Pedido tipo carrito (sesión): cajón lateral, cantidades limitadas por stock, confirmación sin cuenta. Al confirmar se crea el pedido, se registra o reutiliza al cliente por correo y se descuenta el stock.
 - Kuromi también en los estados vacíos, el login/registro, la página 404 y el back office.
+- Pie de página completo: marca, redes sociales en estilo sticker (marcadas como "Próximamente"), columnas Tienda, Rincón Kuromi (enlaces a cada categoría real), Ayuda, Mi cuenta (cambia según la sesión) y Contacto, y créditos. El back office y el login tienen un pie discreto con los mismos créditos.
+- Páginas de ayuda: **Preguntas frecuentes** (`/preguntas-frecuentes`, acordeón con el flujo real de pedido, pago, factura y recogida en Tantoyuca), **Envíos y entregas** (`/envios-y-entregas`) y **Contacto** (`/contacto`): formulario con validación, CSRF, campo trampa contra bots y límite de 5 envíos por minuto; el mensaje llega por correo (`MensajeContactoMail`, con "responder a" del cliente) al buzón `MAIL_CONTACTO_ADDRESS` (en local se ve en Mailpit).
 
 **Back office** (`/dashboard`, `/admin/...`)
 - Dashboard con KPIs (cobrado del mes y variación, ventas cobradas, por cobrar, ticket promedio), gráfica de ingresos por mes (cobrado vs por cobrar), dona de facturas por estado, mejores clientes y facturas recientes. Cada gráfica tiene tabla de datos.
@@ -93,7 +95,7 @@ php artisan serve
 
 ## Pruebas
 
-76 pruebas (240 aserciones) con PHPUnit 13 sobre SQLite en memoria:
+89 pruebas (301 aserciones) con PHPUnit 13 sobre SQLite en memoria:
 
 - 25 originales de Breeze (registro, login, verificación de correo, contraseñas, perfil) y ejemplo.
 - `TiendaTest`: portada, búsqueda por texto y descripción, filtro por categoría y orden, productos ocultos, ficha de producto.
@@ -101,6 +103,8 @@ php artisan serve
 - `AccesoTest`: rutas protegidas (invitados al login), perfil de consulta solo lectura, administrador con acceso completo, perfil asignado al registrarse.
 - `FacturaTest`: alta con PDF/XML y correo enviado, adjuntos del correo, validación de archivos y folio, **descarga con `application/pdf`**, vista previa del correo, filtros, edición y borrado, numeración consecutiva.
 - `BackOfficeTest`: KPIs del dashboard, clientes con imagen y RFC, facturar pedidos, estados de pedido, productos y categorías, perfiles.
+- `PieDePaginaTest`: páginas de ayuda, enlaces del pie a páginas y categorías reales (sin enlaces `#`), créditos, "Mi cuenta" según la sesión y pie del back office.
+- `ContactoTest`: token CSRF en el formulario, envío del correo a la tienda con "responder a", mensaje de éxito, validación, campo trampa y contenido del correo.
 - `ImportesFacturaTest` (unit): cálculo y desglose de IVA.
 
 ```bash
@@ -119,6 +123,9 @@ docker compose exec app php artisan test
 | ![Correo de factura](docs/screenshots/correo-factura.png) | ![Pedidos](docs/screenshots/admin-pedidos-claro.png) |
 
 | ![Login](docs/screenshots/login-oscuro.png) | ![Página 404](docs/screenshots/pagina-404-claro.png) |
+| ![Pie de página](docs/screenshots/tienda-pie-claro.png) | ![Pie de página oscuro](docs/screenshots/tienda-pie-oscuro.png) |
+| ![Preguntas frecuentes](docs/screenshots/ayuda-preguntas-claro.png) | ![Contacto](docs/screenshots/contacto-formulario-claro.png) |
+| ![Envíos y entregas](docs/screenshots/ayuda-envios-oscuro.png) | ![Pie en móvil](docs/screenshots/movil-pie-oscuro.png) |
 
 Móvil: ![Móvil claro](docs/screenshots/movil-portada-claro.png) ![Móvil oscuro](docs/screenshots/movil-portada-oscuro.png)
 
@@ -127,9 +134,11 @@ Móvil: ![Móvil claro](docs/screenshots/movil-portada-claro.png) ![Móvil oscur
 ```
 app/Http/Controllers/TiendaController.php     tienda pública y búsqueda AJAX
 app/Http/Controllers/CarritoController.php    pedido en sesión y confirmación
+app/Http/Controllers/ContactoController.php   formulario de contacto (correo a la tienda)
 app/Http/Controllers/Admin/*                  dashboard, clientes, facturas, pedidos, productos, categorías, perfiles
 app/Support/Carrito.php, FacturaPdf.php       carrito en sesión y PDF con dompdf
 app/Mail/FacturaCreadaMail.php                correo con PDF adjunto
+app/Mail/MensajeContactoMail.php              mensaje del formulario de contacto
 resources/views/tienda, admin, pdf, emails    vistas Blade
 resources/css/app.css                         tokens de color y componentes (Tailwind 4)
 docker-compose.yml, docker/php/               entorno local

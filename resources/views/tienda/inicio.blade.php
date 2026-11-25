@@ -55,7 +55,7 @@
     </section>
 
     {{-- Categorías --}}
-    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20" aria-labelledby="titulo-categorias">
+    <section id="categorias" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-16 sm:px-6 md:py-20" aria-labelledby="titulo-categorias">
         <div class="reveal flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
                 <p class="eyebrow"><x-deco tipo="estrella" clase="size-4 text-[#ffd84d]" /> Explora</p>
@@ -82,7 +82,7 @@
     </section>
 
     {{-- Favoritos --}}
-    <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6" aria-labelledby="titulo-favoritos">
+    <section id="favoritos" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-10 sm:px-6" aria-labelledby="titulo-favoritos">
         <div class="reveal flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div class="flex items-center gap-4">
                 <img src="{{ asset('images/descarga4.jpg') }}" alt="" class="medalla size-16 sm:size-20">

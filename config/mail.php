@@ -115,4 +115,10 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    | Buzón que recibe los mensajes del formulario de contacto de la tienda.
+    */
+
+    'contacto' => env('MAIL_CONTACTO_ADDRESS', env('MAIL_FROM_ADDRESS', 'hello@example.com')),
+
 ];

@@ -450,14 +450,16 @@
         transform: rotate(-2deg);
     }
 
-    .chip[aria-pressed='true'] {
+    .chip[aria-pressed='true'],
+    .chip[aria-current='page'] {
         background: var(--brand);
         color: #fff;
         border-color: var(--sticker);
         box-shadow: 3px 3px 0 var(--sticker);
     }
 
-    [data-theme='dark'] .chip[aria-pressed='true'] {
+    [data-theme='dark'] .chip[aria-pressed='true'],
+    [data-theme='dark'] .chip[aria-current='page'] {
         color: #1d0b2b;
     }
 

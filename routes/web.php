@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PedidoController;
 use App\Http\Controllers\Admin\PerfilController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TiendaController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,14 @@ Route::prefix('carrito')->name('carrito.')->group(function () {
     Route::post('/confirmar', [CarritoController::class, 'confirmar'])->name('confirmar');
     Route::get('/gracias/{folio}', [CarritoController::class, 'gracias'])->name('gracias');
 });
+
+/*
+| Ayuda y contacto
+*/
+Route::view('/preguntas-frecuentes', 'tienda.ayuda.preguntas')->name('ayuda.preguntas');
+Route::view('/envios-y-entregas', 'tienda.ayuda.envios')->name('ayuda.envios');
+Route::get('/contacto', [ContactoController::class, 'mostrar'])->name('contacto');
+Route::post('/contacto', [ContactoController::class, 'enviar'])->middleware('throttle:5,1')->name('contacto.enviar');
 
 /*
 | Back office: lectura para cualquier usuario autenticado,

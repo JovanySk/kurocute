@@ -56,38 +56,7 @@
         {{ $slot }}
     </main>
 
-    <footer class="mt-24 bg-night text-white">
-        <div class="h-3 bg-[repeating-linear-gradient(90deg,#7b4397_0_24px,#ff4fa3_24px_48px)]"></div>
-        <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
-            <div class="max-w-sm">
-                <span class="inline-flex items-center gap-2.5">
-                    <img src="{{ asset('images/ima6.jpg') }}" alt="" class="medalla size-12 !border-white object-[50%_20%]">
-                    <span class="font-display text-2xl font-bold">Kuro<span class="text-[#ff6fb7]">Cute</span></span>
-                </span>
-                <p class="mt-4 leading-relaxed text-white/70">Tu tiendita favorita de Kuromi: peluches, figuras, maquillaje y hasta motos. Hecho con mucho cariño en Tantoyuca.</p>
-            </div>
-            <div>
-                <p class="font-display text-lg font-semibold text-[#e0b8ff]">Tienda</p>
-                <ul class="mt-3 space-y-2 text-white/75">
-                    <li><a class="hover:text-white" href="{{ route('tienda.catalogo') }}">Catálogo completo</a></li>
-                    <li><a class="hover:text-white" href="{{ route('carrito.index') }}">Mi pedido</a></li>
-                    <li><a class="hover:text-white" href="{{ route('inicio') }}#como-funciona">Cómo pedir</a></li>
-                </ul>
-            </div>
-            <div>
-                <p class="font-display text-lg font-semibold text-[#e0b8ff]">Contacto</p>
-                <ul class="mt-3 space-y-2 text-white/75">
-                    <li>hola@example.com</li>
-                    <li>Lunes a sábado, 10:00 a 19:00</li>
-                    <li>Tantoyuca, Veracruz</li>
-                </ul>
-            </div>
-        </div>
-        <div class="mx-auto flex max-w-6xl flex-col gap-2 border-t border-white/10 px-4 py-6 text-xs text-white/55 sm:flex-row sm:justify-between sm:px-6">
-            <p>&copy; {{ date('Y') }} KuroCute. Proyecto escolar de fans, sin fines de lucro.</p>
-            <p>Kuromi y sus imágenes pertenecen a sus respectivos dueños (Sanrio).</p>
-        </div>
-    </footer>
+    @include('tienda.partials.pie')
 
     @include('tienda.partials.cajon-carrito')
 
