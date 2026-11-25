@@ -146,4 +146,4 @@ docker-compose.yml, docker/php/               entorno local
 No se versionan credenciales: `.env` está en `.gitignore` y `.env.example` solo trae valores de ejemplo.
 
 ---
-Autor: **Jovany Morales del Ángel** · Licencia MIT
+Autor: **Jovany Morales del Ángel** · © 2026 Todos los derechos reservados.
