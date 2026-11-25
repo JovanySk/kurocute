@@ -1,171 +1,125 @@
+@php
+    $m = fn ($v) => '$'.number_format((float) $v, 2);
+    $nombre = strtok($factura->cliente->nombre, ' ');
+    $pagada = $factura->estado?->clave === 'pagada';
+    [$fondoEstado, $textoEstado] = match ($factura->estado?->clave) {
+        'pagada' => ['#e3f5ec', '#1f8a5e'],
+        'vencida' => ['#fde6ea', '#c8384f'],
+        'cancelada' => ['#efedf2', '#6b6478'],
+        default => ['#fdf1dc', '#9a5d06'],
+    };
+@endphp
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Tu Nueva Factura de KuroCute!</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f0fc; /* Un lila muy claro, inspirado en Kuromi */
-            color: #333333;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
-        .email-container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border-radius: 12px; /* Bordes más redondeados */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
-            overflow: hidden;
-            border: 1px solid #e0cffc; /* Borde sutil a juego */
-        }
-        .header {
-            background-color: #7b4397; /* Un morado oscuro, color característico de Kuromi */
-            padding: 30px 20px;
-            color: #ffffff;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra de texto sutil */
-        }
-        .content {
-            padding: 25px 35px;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-        .content p {
-            margin-bottom: 15px;
-        }
-        .section-title {
-            font-size: 19px;
-            font-weight: bold;
-            color: #7b4397; /* Color principal de la marca */
-            margin-top: 25px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e0cffc; /* Borde más grueso y a juego */
-            padding-bottom: 8px;
-        }
-        .table-factura {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fefefe;
-        }
-        .table-factura th,
-        .table-factura td {
-            padding: 14px 18px; /* Más padding */
-            border-bottom: 1px solid #f0e6fa; /* Bordes más suaves */
-            text-align: left;
-        }
-        .table-factura th {
-            background-color: #f3ecfb; /* Fondo lila muy claro para encabezados */
-            font-weight: bold;
-            color: #5a3270; /* Texto más oscuro */
-            font-size: 14px;
-        }
-        .table-factura tr:last-child td {
-            border-bottom: none;
-        }
-        .footer {
-            background-color: #f3ecfb;
-            padding: 20px;
-            font-size: 12px;
-            color: #888888;
-            text-align: center;
-            border-top: 1px solid #e0cffc;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
-        .accent-text {
-            color: #7b4397; /* Texto de acento para la marca */
-            font-weight: bold;
-        }
-        .button {
-            display: inline-block;
-            background-color: #7b4397; /* Botón a juego con el color principal */
-            color: #ffffff;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s ease; /* Transición sutil para el botón */
-        }
-        .button:hover {
-            background-color: #5a3270; /* Morado más oscuro al pasar el ratón */
-        }
-    </style>
+    <meta name="color-scheme" content="light">
+    <title>Tu factura {{ $factura->numero }}</title>
 </head>
-<body>
-    <div class="email-container">
-        <div class="header">
-            <h1>🖤 KuroCute 🖤</h1>
-            <p style="font-size: 16px; margin-top: 10px; font-weight: normal;">¡Tu universo de Kuromi!</p>
-        </div>
+<body style="margin:0; padding:0; background:#f1ebf7; font-family:'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif; color:#1b1124; -webkit-text-size-adjust:100%;">
+    <div style="display:none; max-height:0; overflow:hidden;">Tu factura {{ $factura->numero }} por {{ $m($factura->total) }} ya está lista. Adjuntamos el PDF.</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1ebf7;">
+        <tr>
+            <td align="center" style="padding:32px 12px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
+                    {{-- Marca --}}
+                    <tr>
+                        <td style="padding:0 8px 18px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+                                <td style="width:36px; height:36px; background:#2a1740; border-radius:11px; text-align:center; font-size:18px; line-height:36px; color:#c9b2f5; font-weight:bold;">K</td>
+                                <td style="padding-left:10px; font-size:18px; font-weight:700; letter-spacing:-0.3px;">kuro<span style="color:#e64c95;">cute</span></td>
+                            </tr></table>
+                        </td>
+                    </tr>
 
-        <div class="content">
-            <p>Hola,</p>
+                    <tr>
+                        <td style="background:#ffffff; border-radius:24px; overflow:hidden; box-shadow:0 18px 40px -20px rgba(76,42,120,0.35);">
+                            {{-- Encabezado oscuro --}}
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="background:#140d1c; background-image:radial-gradient(circle at 90% 0%, rgba(139,92,246,0.45), rgba(20,13,28,0) 60%); padding:36px 36px 32px; border-radius:24px 24px 0 0; color:#ffffff;">
+                                        <p style="margin:0; font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#c9b2f5; font-weight:700;">Factura {{ $factura->numero }}</p>
+                                        <h1 style="margin:12px 0 0; font-size:26px; line-height:1.2; font-weight:700;">Hola {{ $nombre }}, tu factura ya está lista.</h1>
+                                        <p style="margin:12px 0 0; font-size:15px; line-height:1.6; color:#d8cfe4;">Gracias por comprar en KuroCute. Adjuntamos tu factura en PDF{{ $factura->archivo_xml ? ' y el XML timbrado' : '' }}.</p>
+                                    </td>
+                                </tr>
+                            </table>
 
-            <p>¡Aquí está tu nueva factura de <span class="accent-text">KuroCute</span>! Esperamos que disfrutes de tus nuevos artículos de Kuromi.</p>
-            <p>Puedes encontrar los detalles de tu compra a continuación:</p>
+                            {{-- Total destacado --}}
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding:28px 36px 8px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf7fd; border:1px solid #ece6f3; border-radius:18px;">
+                                            <tr>
+                                                <td style="padding:20px 22px;">
+                                                    <p style="margin:0; font-size:12px; color:#8a7f98;">{{ $pagada ? 'Total pagado' : 'Total a pagar' }}</p>
+                                                    <p style="margin:4px 0 0; font-size:30px; font-weight:700; color:#6b3fa0;">{{ $m($factura->total) }} <span style="font-size:13px; font-weight:500; color:#8a7f98;">MXN</span></p>
+                                                </td>
+                                                <td align="right" style="padding:20px 22px;">
+                                                    <p style="margin:0; font-size:12px; color:#8a7f98;">Vence</p>
+                                                    <p style="margin:4px 0 0; font-size:15px; font-weight:700;">{{ $factura->fecha_vencimiento?->translatedFormat('j M Y') ?? 'N/A' }}</p>
+                                                    <p style="margin:8px 0 0;"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:{{ $fondoEstado }}; color:{{ $textoEstado }}; font-size:12px; font-weight:700;">{{ $factura->estado?->nombre }}</span></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
-            <div class="section-title">Detalles de tu Pedido</div>
+                                {{-- Conceptos --}}
+                                <tr>
+                                    <td style="padding:20px 36px 0;">
+                                        <p style="margin:0 0 10px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#8a7f98; font-weight:700;">Detalle</p>
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+                                            @foreach ($conceptos as $c)
+                                                <tr>
+                                                    <td style="padding:10px 0; border-bottom:1px solid #ece6f3; color:#1b1124;">{{ $c['descripcion'] }} <span style="color:#8a7f98;">x{{ $c['cantidad'] }}</span></td>
+                                                    <td align="right" style="padding:10px 0; border-bottom:1px solid #ece6f3; white-space:nowrap;">{{ $m($c['importe']) }}</td>
+                                                </tr>
+                                            @endforeach
+                                            <tr><td style="padding:10px 0 2px; color:#5b4d6b;">Subtotal</td><td align="right" style="padding:10px 0 2px;">{{ $m($factura->subtotal) }}</td></tr>
+                                            <tr><td style="padding:2px 0; color:#5b4d6b;">IVA 16%</td><td align="right" style="padding:2px 0;">{{ $m($factura->iva) }}</td></tr>
+                                            <tr><td style="padding:8px 0 0; font-weight:700;">Total</td><td align="right" style="padding:8px 0 0; font-weight:700;">{{ $m($factura->total) }}</td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
-            <table class="table-factura">
-                <tr>
-                    <th>Número de Factura:</th>
-                    <td>{{ $factura->numero }}</td>
-                </tr>
-                <tr>
-                    <th>Cliente:</th>
-                    <td>{{ $factura->cliente->nombre ?? 'No disponible' }}</td>
-                </tr>
-                <tr>
-                    <th>Descripción:</th>
-                    <td>{!! $factura->detalles !!}</td>
-                </tr>
-                <tr>
-                    <th>Valor Total:</th>
-                    <td>${{ number_format($factura->valor, 2) }}</td>
-                </tr>
-                <tr>
-                    <th>Estado del Pago:</th>
-                    <td>{{ $factura->estado->nombre ?? 'No disponible' }}</td>
-                </tr>
-                <tr>
-                    <th>Método de Pago:</th>
-                    <td>{{ $factura->formaPago->nombre ?? 'No disponible' }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha del Pedido:</th>
-                    <td>{{ $factura->created_at->format('d/m/Y H:i') }}</td>
-                </tr>
-            </table>
+                                {{-- Datos --}}
+                                <tr>
+                                    <td style="padding:24px 36px 0;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px; color:#5b4d6b;">
+                                            <tr>
+                                                <td style="padding:4px 0;">Fecha de emisión</td><td align="right" style="padding:4px 0; color:#1b1124;">{{ $factura->fecha_emision->translatedFormat('j M Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:4px 0;">Forma de pago</td><td align="right" style="padding:4px 0; color:#1b1124;">{{ $factura->formaPago?->nombre }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:4px 0;">RFC receptor</td><td align="right" style="padding:4px 0; color:#1b1124;">{{ $factura->cliente->rfc ?? 'XAXX010101000' }}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
-            <p style="margin-top: 30px;">Si tienes alguna pregunta sobre tu pedido o necesitas asistencia, no dudes en contactarnos. ¡Estamos aquí para ayudarte!</p>
+                                <tr>
+                                    <td style="padding:28px 36px 36px;">
+                                        <a href="{{ route('tienda.catalogo') }}" style="display:inline-block; background:#e64c95; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:13px 24px; border-radius:999px;">Seguir comprando</a>
+                                        <p style="margin:20px 0 0; font-size:13px; line-height:1.6; color:#5b4d6b;">Si algo no cuadra, responde a este correo y lo resolvemos.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-            {{-- Opcional: Botón para ver la factura en línea (descomentar si tienes una ruta para esto) --}}
-            {{-- <p style="text-align: center;">
-                <a href="{{ route('facturas.show', $factura->id) }}" class="button">Ver Mi Factura Online</a>
-            </p> --}}
-            
-            <p>¡Gracias por ser parte de la familia <span class="accent-text">KuroCute</span>!</p>
-            <p>Con cariño,<br>El equipo de **KuroCute**</p>
-        </div>
-
-        <div class="footer">
-            &copy; {{ date('Y') }} KuroCute. Todos los derechos reservados.
-            <br>¡La tienda de Kuromi para gente cute!
-        </div>
-    </div>
+                    <tr>
+                        <td align="center" style="padding:22px 16px 0; font-size:12px; line-height:1.6; color:#8a7f98;">
+                            KuroCute &middot; Tienda de demostración con datos ficticios<br>
+                            Recibes este correo porque se emitió una factura a tu nombre.
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

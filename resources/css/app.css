@@ -1,268 +1,494 @@
-/* Prueba forzada */
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* Estilos para botones morados */
-/* Colores de la marca KuroCute / Kuromi */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views';
+@source '../js';
+
+/* Modo oscuro controlado por data-theme en <html> (toggle + preferencia del sistema). */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/*
+ * Paleta KuroCute: "uva" (morado de marca) + "chicle" (rosa de acento) sobre tinta casi negra.
+ * Todos los colores salen de estos tokens; los componentes no usan hex sueltos.
+ */
 :root {
-    --kuro-purple: #7B4397; /* Morado oscuro de Kuromi */
-    --kuro-pink: #E8A0BF; /* Rosa de acento */
-    --kuro-black: #333333; /* Negro principal para texto */
-    --kuro-grey: #666666; /* Gris para texto secundario */
-    --kuro-light-purple: #f8f0fc; /* Fondo muy claro */
-    --kuro-light-grey: #f0f0f0; /* Fondo secundario */
-    --kuro-white: #ffffff;
+    --bg: #f8f5fb;
+    --bg-2: #f1ebf7;
+    --surface: #ffffff;
+    --surface-2: #faf7fd;
+    --line: rgb(43 22 66 / 0.09);
+    --line-strong: rgb(43 22 66 / 0.16);
+    --ink: #1b1124;
+    --ink-2: #5b4d6b;
+    --ink-3: #8a7f98;
+    --brand: #6b3fa0;
+    --brand-strong: #4c2a78;
+    --brand-soft: #efe7fa;
+    --accent: #e64c95;
+    --accent-strong: #c93479;
+    --accent-soft: #fde8f2;
+    --on-accent: #ffffff;
+    --night: #140d1c;
+    --ok: #1f8a5e;
+    --ok-soft: #e3f5ec;
+    --warn: #b7700a;
+    --warn-soft: #fdf1dc;
+    --danger: #c8384f;
+    --danger-soft: #fde6ea;
+    --muted-soft: #efedf2;
+    --chart-1: #6b3fa0;
+    --chart-2: #e64c95;
+    --shadow-soft: 0 1px 2px rgb(43 22 66 / 0.04), 0 12px 32px -12px rgb(43 22 66 / 0.14);
+    --shadow-lift: 0 2px 4px rgb(43 22 66 / 0.05), 0 28px 60px -20px rgb(76 42 120 / 0.32);
+    color-scheme: light;
 }
 
-/* Fuentes */
-body {
-    font-family: 'Gabarito', cursive; /* Una fuente más juguetona y legible */
-    background-color: var(--kuro-light-purple);
-    color: var(--kuro-black);
+[data-theme='dark'] {
+    --bg: #0e0a13;
+    --bg-2: #140e1b;
+    --surface: #17111f;
+    --surface-2: #1f1729;
+    --line: rgb(255 255 255 / 0.07);
+    --line-strong: rgb(255 255 255 / 0.13);
+    --ink: #f4eefa;
+    --ink-2: #b9aec6;
+    --ink-3: #857a93;
+    --brand: #9b74e8;
+    --brand-strong: #c9b2f5;
+    --brand-soft: rgb(139 92 246 / 0.14);
+    --accent: #f06aa8;
+    --accent-strong: #ff8cc0;
+    --accent-soft: rgb(240 106 168 / 0.14);
+    --on-accent: #1b0b16;
+    --night: #08050c;
+    --ok: #4cc58e;
+    --ok-soft: rgb(76 197 142 / 0.13);
+    --warn: #f0b04a;
+    --warn-soft: rgb(240 176 74 / 0.13);
+    --danger: #f07087;
+    --danger-soft: rgb(240 112 135 / 0.14);
+    --muted-soft: rgb(255 255 255 / 0.06);
+    --chart-1: #8b5cf6;
+    --chart-2: #e8559a;
+    --shadow-soft: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 16px 40px -18px rgb(0 0 0 / 0.7);
+    --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 70px -24px rgb(0 0 0 / 0.85);
+    color-scheme: dark;
 }
 
-/* -------------------- Estilos para index.blade.php -------------------- */
+@theme inline {
+    --font-sans: var(--kc-body), ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--kc-display), var(--kc-body), ui-sans-serif, system-ui, sans-serif;
 
-/* Encabezado Principal */
-.header-container {
-    background: linear-gradient(135deg, var(--kuro-purple) 0%, #a46bb5 100%); /* Gradiente morado */
-    color: var(--kuro-white);
-    padding: 60px 0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    margin-bottom: 30px;
+    --color-bg: var(--bg);
+    --color-bg-2: var(--bg-2);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-line: var(--line);
+    --color-line-strong: var(--line-strong);
+    --color-ink: var(--ink);
+    --color-ink-2: var(--ink-2);
+    --color-ink-3: var(--ink-3);
+    --color-brand: var(--brand);
+    --color-brand-strong: var(--brand-strong);
+    --color-brand-soft: var(--brand-soft);
+    --color-accent: var(--accent);
+    --color-accent-strong: var(--accent-strong);
+    --color-accent-soft: var(--accent-soft);
+    --color-on-accent: var(--on-accent);
+    --color-night: var(--night);
+    --color-ok: var(--ok);
+    --color-ok-soft: var(--ok-soft);
+    --color-warn: var(--warn);
+    --color-warn-soft: var(--warn-soft);
+    --color-danger: var(--danger);
+    --color-danger-soft: var(--danger-soft);
+    --color-muted-soft: var(--muted-soft);
+
+    --shadow-soft: var(--shadow-soft);
+    --shadow-lift: var(--shadow-lift);
+
+    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.titulo-principal {
-    font-size: 3.5rem; /* Tamaño grande para el título */
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Sombra al texto */
-    animation: fadeInDown 1s ease-out; /* Animación de entrada */
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+    }
+
+    ::selection {
+        background: var(--accent);
+        color: var(--on-accent);
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+
+    .font-display {
+        letter-spacing: -0.02em;
+    }
 }
 
-.subtitulo {
-    font-size: 1.5rem;
-    margin-top: 15px;
-    animation: fadeInUp 1s ease-out 0.3s forwards; /* Animación con retraso */
-    opacity: 0; /* Inicialmente oculto para la animación */
+@layer components {
+    /* Fondo con brillo suave fijo (no se repinta al hacer scroll). */
+    .kc-backdrop::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+            radial-gradient(60rem 36rem at 85% -10%, color-mix(in oklab, var(--brand) 18%, transparent), transparent 70%),
+            radial-gradient(40rem 30rem at -10% 30%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 9999px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-strong);
+        background: var(--brand-soft);
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 18%, transparent);
+    }
+
+    /* Tarjeta de doble bisel: carcasa exterior + nucleo interior. */
+    .shell {
+        border-radius: 1.75rem;
+        padding: 0.375rem;
+        background: color-mix(in oklab, var(--ink) 3.5%, transparent);
+        box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .core {
+        border-radius: calc(1.75rem - 0.375rem);
+        background: var(--surface);
+        box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.06);
+    }
+
+    .panel {
+        border-radius: 1.25rem;
+        background: var(--surface);
+        box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--line);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        border-radius: 9999px;
+        padding: 0.7rem 1.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: nowrap;
+        transition:
+            transform 0.5s var(--ease-spring),
+            background-color 0.3s var(--ease-out-soft),
+            box-shadow 0.3s var(--ease-out-soft),
+            color 0.3s var(--ease-out-soft);
+    }
+
+    .btn:active {
+        transform: scale(0.97);
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: var(--on-accent);
+        box-shadow: 0 10px 24px -12px color-mix(in oklab, var(--accent) 80%, transparent);
+    }
+
+    .btn-primary:hover {
+        background: var(--accent-strong);
+    }
+
+    .btn-dark {
+        background: var(--ink);
+        color: var(--bg);
+    }
+
+    .btn-dark:hover {
+        background: color-mix(in oklab, var(--ink) 85%, var(--brand));
+    }
+
+    .btn-ghost {
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: inset 0 0 0 1px var(--line-strong);
+    }
+
+    .btn-ghost:hover {
+        background: var(--surface-2);
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 40%, transparent);
+    }
+
+    .btn-danger {
+        background: var(--danger-soft);
+        color: var(--danger);
+    }
+
+    .btn-danger:hover {
+        background: var(--danger);
+        color: #fff;
+    }
+
+    .btn-sm {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    /* Icono anidado dentro del boton (boton dentro de boton). */
+    .btn-orb {
+        display: inline-flex;
+        height: 1.75rem;
+        width: 1.75rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        margin-right: -0.55rem;
+        background: rgb(255 255 255 / 0.2);
+        transition: transform 0.5s var(--ease-spring);
+    }
+
+    .btn:hover .btn-orb {
+        transform: translate(2px, -1px) scale(1.06);
+    }
+
+    .field {
+        display: block;
+        width: 100%;
+        border-radius: 0.9rem;
+        border: 0;
+        background-color: var(--surface-2);
+        color: var(--ink);
+        padding: 0.72rem 0.95rem;
+        font-size: 0.9rem;
+        box-shadow: inset 0 0 0 1px var(--line-strong);
+        transition: box-shadow 0.25s var(--ease-out-soft), background-color 0.25s var(--ease-out-soft);
+    }
+
+    .field::placeholder {
+        color: var(--ink-3);
+    }
+
+    .field:focus {
+        outline: none;
+        background-color: var(--surface);
+        box-shadow:
+            inset 0 0 0 1px var(--brand),
+            0 0 0 4px color-mix(in oklab, var(--brand) 16%, transparent);
+    }
+
+    select.field {
+        padding-right: 2.5rem;
+    }
+
+    .label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--ink-2);
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border-radius: 9999px;
+        padding: 0.22rem 0.65rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .badge::before {
+        content: '';
+        height: 0.4rem;
+        width: 0.4rem;
+        border-radius: 9999px;
+        background: currentColor;
+    }
+
+    .badge-ok { background: var(--ok-soft); color: var(--ok); }
+    .badge-warn { background: var(--warn-soft); color: var(--warn); }
+    .badge-danger { background: var(--danger-soft); color: var(--danger); }
+    .badge-muted { background: var(--muted-soft); color: var(--ink-3); }
+    .badge-brand { background: var(--brand-soft); color: var(--brand-strong); }
+    .badge-accent { background: var(--accent-soft); color: var(--accent-strong); }
+
+    .tabla {
+        width: 100%;
+        font-size: 0.875rem;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .tabla thead th {
+        padding: 0.8rem 1rem;
+        text-align: left;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .tabla tbody td {
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+    }
+
+    .tabla tbody tr {
+        transition: background-color 0.25s var(--ease-out-soft);
+    }
+
+    .tabla tbody tr:hover {
+        background: var(--surface-2);
+    }
+
+    .tabla tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .num {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .nav-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-radius: 0.9rem;
+        padding: 0.6rem 0.85rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--ink-2);
+        transition: background-color 0.25s var(--ease-out-soft), color 0.25s var(--ease-out-soft);
+    }
+
+    .nav-pill:hover {
+        background: var(--surface-2);
+        color: var(--ink);
+    }
+
+    .nav-pill[aria-current='page'] {
+        background: var(--ink);
+        color: var(--bg);
+    }
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink-2);
+        background: var(--surface);
+        box-shadow: inset 0 0 0 1px var(--line-strong);
+        transition: all 0.35s var(--ease-spring);
+    }
+
+    .chip:hover {
+        color: var(--ink);
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 45%, transparent);
+    }
+
+    .chip[aria-pressed='true'] {
+        background: var(--ink);
+        color: var(--bg);
+        box-shadow: none;
+    }
+
+    .link {
+        color: var(--brand);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: color-mix(in oklab, var(--brand) 30%, transparent);
+        text-underline-offset: 3px;
+    }
+
+    .link:hover {
+        text-decoration-color: var(--brand);
+    }
 }
 
-/* Carrusel */
-.carousel-container {
-    padding: 0 20px; /* Margen a los lados */
-    margin-bottom: 50px;
-}
-
-#mainCarousel {
-    border-radius: 15px; /* Bordes redondeados para el carrusel */
-    overflow: hidden; /* Asegura que la imagen no sobresalga del borde */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada */
-}
-
-.carousel-img {
-    max-height: 500px; /* Altura máxima para las imágenes del carrusel */
-    object-fit: cover; /* Recorta la imagen para que cubra el espacio */
-    filter: brightness(0.95); /* Ligero oscurecimiento para mejor contraste */
-    transition: filter 0.3s ease; /* Transición suave al pasar el ratón */
-}
-
-.carousel-img:hover {
-    filter: brightness(1); /* Se vuelve más brillante al pasar el ratón */
-}
-
-.carousel-indicators [data-bs-target] {
-    background-color: var(--kuro-purple); /* Color morado para los indicadores */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para los iconos de control */
-    border-radius: 50%;
-    padding: 15px;
-}
-
-/* Título de Productos */
-h2.text-center {
-    font-size: 2.5rem;
-    color: var(--kuro-purple);
-    margin-bottom: 40px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-h2.text-center::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--kuro-pink); /* Línea de acento rosa */
-    border-radius: 2px;
-}
-
-/* Tarjetas de Producto */
-.card {
-    border: none; /* Eliminar borde predeterminado de Bootstrap */
-    border-radius: 15px; /* Bordes redondeados */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave al pasar el ratón */
-    overflow: hidden; /* Para que la imagen no sobresalga del borde redondeado */
-}
-
-.card:hover {
-    transform: translateY(-10px); /* Efecto flotante al pasar el ratón */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra más grande */
-}
-
-.card-img-top {
-    height: 250px; /* Altura fija para las imágenes de la tarjeta */
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-}
-
-.card-body {
-    padding: 20px;
-    background-color: var(--kuro-white);
-}
-
-.card-title {
-    font-size: 1.5rem;
-    color: var(--kuro-purple);
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.card-text {
-    font-size: 1.1rem;
-    color: var(--kuro-grey);
-    margin-bottom: 5px;
-}
-
-.card-text strong {
-    color: var(--kuro-black);
-}
-
-/* -------------------- Estilos para footer.blade.php -------------------- */
-
-.main-footer {
-    background-color: var(--kuro-black); /* Fondo negro para el footer */
-    color: var(--kuro-white);
-    padding: 40px 0;
-    font-size: 0.95rem;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2); /* Sombra en la parte superior */
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-top: 50px; /* Espacio para separar del contenido */
-}
-
-.footer-logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--kuro-pink); /* Color de acento para el logo del footer */
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links ul li {
-    margin-bottom: 10px;
-}
-
-.footer-links ul li a {
-    color: var(--kuro-white);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-links ul li a:hover {
-    color: var(--kuro-pink); /* Cambio de color al pasar el ratón */
-    text-decoration: underline;
-}
-
-.social-icons a {
-    color: var(--kuro-white);
-    font-size: 1.8rem;
-    margin: 0 10px;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.social-icons a:hover {
-    color: var(--kuro-pink); /* Color de acento al pasar el ratón */
-    transform: translateY(-3px); /* Pequeño efecto de elevación */
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 20px;
-    margin-top: 30px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* Animaciones */
-@keyframes fadeInDown {
-    from {
+/* Aparicion al entrar en pantalla (IntersectionObserver en app.js). */
+@media (prefers-reduced-motion: no-preference) {
+    .reveal {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(28px);
+        filter: blur(6px);
+        transition:
+            opacity 0.9s var(--ease-out-soft),
+            transform 0.9s var(--ease-out-soft),
+            filter 0.9s var(--ease-out-soft);
+        transition-delay: var(--delay, 0ms);
     }
-    to {
+
+    .reveal.is-visible {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
+        filter: none;
+    }
+
+    .float-slow {
+        animation: kc-float 7s var(--ease-out-soft) infinite alternate;
+    }
+
+    .twinkle {
+        animation: kc-twinkle 3.2s ease-in-out infinite;
     }
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@keyframes kc-float {
+    from { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    to { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+}
+
+@keyframes kc-twinkle {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
-<footer class="main-footer text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <h4 class="footer-logo">🖤 KuroCute 🖤</h4>
-                <p>Tu destino número uno para todo lo relacionado con Kuromi. ¡Encuentra los muñecos y accesorios más adorables!</p>
-            </div>
-            <div class="col-md-4 mb-4 footer-links">
-                <h5>Enlaces Rápidos</h5>
-                <ul>
-                    <li><a href="{{ route('index') }}">Inicio</a></li>
-                    <li><a href="{{ route('productos.index') }}">Productos</a></li>
-                    <li><a href="#">Preguntas Frecuentes</a></li>
-                    <li><a href="#">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Síguenos</h5>
-                <div class="social-icons">
-                    <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
-                <p class="mt-3">Mantente al día con nuestras últimas novedades y ofertas.</p>
-            </div>
-        </div>
-        <div class="row footer-bottom">
-            <div class="col-12">
-                <p>&copy; {{ date('Y') }} KuroCute. Todos los derechos reservados. | La tienda de Kuromi para gente cute.</p>
-            </div>
-        </div>
-    </div>
-</footer>
 
-<script src="https://kit.fontawesome.com/your_font_awesome_kit_code.js" crossorigin="anonymous"></script>
+/* Se usa un boton propio para limpiar la busqueda. */
+input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
+}

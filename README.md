@@ -1,35 +1,136 @@
-# KuroCute — Laravel store & invoicing
+# KuroCute: tienda y facturación en Laravel 13
 
-A Laravel 12 web app for a small themed store: a public product catalog with search, plus an authenticated back office for **clients, invoices, profiles and catalog sections**.
+Tienda en línea con estética nocturna (morado de marca + rosa chicle) y un back office para pedidos, clientes, facturas, catálogo y perfiles. Todos los datos de ejemplo son ficticios y las ilustraciones son originales (SVG propios, sin imágenes de marcas de terceros).
 
-![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.2-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-Eloquent-4479A1) ![Breeze](https://img.shields.io/badge/auth-Laravel%20Breeze-blue)
+![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-76%20passing-1f8a5e)
 
-## Features
+![Portada de la tienda](docs/screenshots/tienda-portada-claro.png)
 
-- **Public catalog:** home page with product search (`?q=`) using Eloquent `LIKE` queries.
-- **Authentication:** login, registration, email verification, password reset and profile management (Laravel Breeze).
-- **Clients:** CRUD with profile image upload to the `public` disk.
-- **Invoices:**
-  - CRUD with payment method and invoice status catalogs;
-  - **PDF/XML attachment** upload (validated, max 10 MB);
-  - an **automatic email to the client** when an invoice is created (`FacturaCreadaMail`).
-- **Data model:** 8 Eloquent models (Cliente, Factura, Pedido, Producto, Perfil, FormasPago, EstadoFactura, User) and 10 migrations with foreign keys.
-- **UI:** Blade, Bootstrap 5, Tailwind, Alpine.js, AJAX modals and CKEditor for invoice notes.
-- **Tests:** 25 PHPUnit feature tests for registration, login, email verification, password reset and profile flows (SQLite in-memory).
+## Stack
 
-## Run it
+| Capa | Versión |
+| --- | --- |
+| PHP | 8.5 (imagen `php:8.5-cli`), requiere `^8.4` |
+| Laravel | 13.44 |
+| Laravel Breeze (Blade) | 2.4.2 |
+| barryvdh/laravel-dompdf | 3.1.2 (dompdf 3.1.6) |
+| PHPUnit | 13.4 |
+| Vite / laravel-vite-plugin | 8.3 / 3.2 |
+| Tailwind CSS | 4.3 (plugin `@tailwindcss/vite`, `@tailwindcss/forms`) |
+| Alpine.js | 3.17 (+ collapse, focus) |
+| Axios | 1.21 |
+| Chart.js | 4.6 |
+| MySQL | 8.4 (Docker) |
+| Correo local | Mailpit |
+
+Tipografias: Unbounded (titulares) y Plus Jakarta Sans (texto), empaquetadas en el build con el soporte de fuentes de `laravel-vite-plugin`.
+
+## Funciones
+
+**Tienda pública**
+- Portada con hero editorial, buscador, categorías en bento y productos favoritos.
+- Catálogo con búsqueda instantanea (Alpine + AJAX a `/catalogo/buscar`, con debounce), filtros por categoría, orden por precio o nombre y la URL sincronizada.
+- Vista rápida del producto en modal y ficha de producto con relacionados.
+- Pedido tipo carrito (sesión): cajon lateral, cantidades limitadas por stock, confirmacion sin cuenta. Al confirmar se crea el pedido, se registra o reutiliza al cliente por correo y se descuenta el stock.
+
+**Back office** (`/dashboard`, `/admin/...`)
+- Dashboard con KPIs (cobrado del mes y variacion, ventas cobradas, por cobrar, ticket promedio), gráfica de ingresos por mes (cobrado vs por cobrar), dona de facturas por estado, mejores clientes y facturas recientes. Cada gráfica tiene tabla de datos.
+- Facturas: listado con búsqueda, pestanas por estado, filtro por forma de pago y rango de fechas; formulario con calculo de IVA en vivo y carga de PDF/XML con vista previa; detalle; **Descargar PDF** (dompdf); vista previa y reenvio del correo.
+- Correo `FacturaCreadaMail` en HTML con el PDF generado adjunto (y el XML si existe). Se envia al crear la factura.
+- Pedidos: listado por estado, cambio de estado y **Generar factura** desde el pedido (IVA desglosado de precios con IVA incluido).
+- Clientes con foto o logotipo (vista previa al subir), RFC validado, historial de facturas.
+- Productos y categorías (las antiguas "secciones").
+- Perfiles: `Administrador` puede crear, editar y eliminar; `Consulta` (asignado al registrarse) solo lee. Se controla con el gate `administrar`.
+- Modo claro y oscuro (respeta la preferencia del sistema y se recuerda), animaciones que respetan `prefers-reduced-motion`, interfaz en espanol y adaptada a movil.
+
+## Correr con Docker
+
+Solo necesitas Docker. El `docker-compose.yml` levanta PHP 8.5, MySQL 8.4, Mailpit y un contenedor de Node que compila los assets.
 
 ```bash
-cp .env.example .env          # set DB_* and MAIL_* values
-composer install && npm install
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
-npm run build && php artisan serve
-php artisan test
+git clone <este repositorio> kurocute && cd kurocute
+docker compose up -d --build
 ```
 
-No credentials are committed. Uploaded client images and invoices are stored under `storage/app` and are not versioned.
+La primera vez el contenedor `app` instala dependencias con Composer, crea `.env` desde `.env.example`, genera `APP_KEY`, migra y siembra datos de ejemplo (tarda un par de minutos).
+
+- Tienda: http://localhost:8000
+- Back office: http://localhost:8000/login
+  - Administrador: `admin@example.com` / `password`
+  - Solo lectura: `consulta@example.com` / `password`
+- Correos capturados (Mailpit): http://localhost:8025
+
+Comandos utiles:
+
+```bash
+docker compose exec app php artisan test                  # pruebas
+docker compose exec app php artisan migrate:fresh --seed  # reiniciar datos
+docker compose down -v                                     # apagar y borrar volumenes
+```
+
+Para trabajar los estilos con recarga en caliente puedes usar Node en tu maquina: `npm install && npm run dev`.
+
+### Sin Docker
+
+PHP 8.4+ con `pdo_mysql`, `gd`, `zip` e `intl`, Composer, Node 20.19+ y MySQL:
+
+```bash
+cp .env.example .env          # ajusta DB_* y MAIL_*
+composer install && npm install && npm run build
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve
+```
+
+## Datos de ejemplo
+
+`DatabaseSeeder` carga los catalogos base (`CatalogosSeeder`) y `DemoSeeder`:
+6 categorías, 28 productos, 18 clientes ficticios con correos `@example.com`, unos 45 pedidos repartidos en el último año y 60 facturas en todos los estados. Los archivos se generan al sembrar: avatares PNG con iniciales (GD), un PDF por factura (dompdf) y un XML tipo CFDI 4.0 marcado como documento de demostración sin validez fiscal.
+
+## Pruebas
+
+76 pruebas (240 aserciones) con PHPUnit 13 sobre SQLite en memoria:
+
+- 25 originales de Breeze (registro, login, verificacion de correo, contrasenas, perfil) y ejemplo.
+- `TiendaTest`: portada, búsqueda por texto y descripción, filtro por categoría y orden, productos ocultos, ficha de producto.
+- `CarritoTest`: agregar, limite de stock, agotados, actualizar y quitar, confirmar pedido, reutilizar cliente, privacidad del resumen.
+- `AccesoTest`: rutas protegidas (invitados al login), perfil de consulta solo lectura, administrador con acceso completo, perfil asignado al registrarse.
+- `FacturaTest`: alta con PDF/XML y correo enviado, adjuntos del correo, validación de archivos y folio, **descarga con `application/pdf`**, vista previa del correo, filtros, edición y borrado, numeracion consecutiva.
+- `BackOfficeTest`: KPIs del dashboard, clientes con imagen y RFC, facturar pedidos, estados de pedido, productos y categorías, perfiles.
+- `ImportesFacturaTest` (unit): calculo y desglose de IVA.
+
+```bash
+docker compose exec app php artisan test
+```
+
+## Capturas
+
+| | |
+| --- | --- |
+| ![Portada oscura](docs/screenshots/tienda-portada-oscuro.png) | ![Catálogo con búsqueda](docs/screenshots/catalogo-busqueda-claro.png) |
+| ![Vista rápida](docs/screenshots/producto-vista-rapida-claro.png) | ![Ficha de producto](docs/screenshots/producto-ficha-oscuro.png) |
+| ![Dashboard](docs/screenshots/admin-dashboard-claro.png) | ![Dashboard oscuro](docs/screenshots/admin-dashboard-oscuro.png) |
+| ![Facturas](docs/screenshots/admin-facturas-claro.png) | ![Formulario de factura](docs/screenshots/admin-factura-formulario-claro.png) |
+| ![Detalle de factura](docs/screenshots/admin-factura-detalle-claro.png) | ![PDF de factura](docs/screenshots/factura-pdf.png) |
+| ![Correo de factura](docs/screenshots/correo-factura.png) | ![Pedidos](docs/screenshots/admin-pedidos-claro.png) |
+
+Móvil: ![Móvil claro](docs/screenshots/movil-portada-claro.png) ![Móvil oscuro](docs/screenshots/movil-portada-oscuro.png)
+
+## Estructura
+
+```
+app/Http/Controllers/TiendaController.php     tienda publica y busqueda AJAX
+app/Http/Controllers/CarritoController.php    pedido en sesion y confirmacion
+app/Http/Controllers/Admin/*                  dashboard, clientes, facturas, pedidos, productos, categorias, perfiles
+app/Support/Carrito.php, FacturaPdf.php       carrito en sesion y PDF con dompdf
+app/Mail/FacturaCreadaMail.php                correo con PDF adjunto
+resources/views/tienda, admin, pdf, emails    vistas Blade
+resources/css/app.css                         tokens de color y componentes (Tailwind 4)
+docker-compose.yml, docker/php/               entorno local
+```
+
+No se versionan credenciales: `.env` está en `.gitignore` y `.env.example` solo trae valores de ejemplo.
 
 ---
-Author: **Jovany Morales del Ángel** · MIT License
+Autor: **Jovany Morales del Ángel** · Licencia MIT

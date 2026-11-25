@@ -1,57 +1,18 @@
-@extends('master') {{-- Asegúrate de que esto extienda tu layout principal --}}
+<x-guest-layout titulo="Recuperar contraseña">
+    <p class="eyebrow">Recuperar acceso</p>
+    <h1 class="mt-5 font-display text-3xl font-semibold tracking-tight">¿Olvidaste tu contraseña?</h1>
+    <p class="mt-2 text-ink-2">Escribe tu correo y te enviaremos un enlace para elegir una nueva.</p>
 
-@section('contenido')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg p-4 border-0">
-                <div class="card-body">
-                    <h3 class="card-title text-center mb-4">¿Olvidaste tu contraseña?</h3>
-                    
-                    {{-- Mensaje de información --}}
-                    <div class="alert alert-info mb-4 text-center">
-                        No hay problema. Introduce tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
-                    </div>
+    <x-auth-session-status class="mt-6" :status="session('status')" />
 
-                    {{-- Alerta de estado de sesión --}}
-                    @if (session('status'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('status') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        {{-- Campo de Correo Electrónico --}}
-                        <div class="mb-4">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input id="email" 
-                                   type="email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   required 
-                                   autofocus 
-                                   placeholder="Tu correo electrónico">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        {{-- Botón de Enviar --}}
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                Enviar Enlace para Restablecer
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <form method="POST" action="{{ route('password.email') }}" class="mt-8 space-y-5">
+        @csrf
+        <div>
+            <x-input-label for="email" value="Correo electrónico" />
+            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus />
+            <x-input-error :messages="$errors->get('email')" />
         </div>
-    </div>
-</div>
-@endsection
+        <button type="submit" class="btn btn-primary w-full">Enviar enlace</button>
+    </form>
+    <p class="mt-6 text-center text-sm"><a href="{{ route('login') }}" class="link">Volver a iniciar sesión</a></p>
+</x-guest-layout>

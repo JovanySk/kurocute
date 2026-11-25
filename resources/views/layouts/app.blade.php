@@ -1,36 +1,113 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="es">
+<head>
+    @include('partials.head', ['titulo' => $titulo])
+    @stack('head')
+</head>
+<body class="kc-backdrop min-h-[100dvh] antialiased" x-data="{ lateral: false }">
+    <x-arte-sprite />
+    @php
+        $grupos = [
+            'General' => [
+                ['Dashboard', 'dashboard', 'panel', 'dashboard'],
+            ],
+            'Ventas' => [
+                ['Pedidos', 'pedidos.index', 'carrito', 'pedidos.*'],
+                ['Facturas', 'facturas.index', 'factura', 'facturas.*'],
+                ['Clientes', 'clientes.index', 'clientes', 'clientes.*'],
+            ],
+            'Catálogo' => [
+                ['Productos', 'productos.index', 'caja', 'productos.*'],
+                ['Categorías', 'categorias.index', 'etiqueta', 'categorias.*'],
+            ],
+            'Ajustes' => [
+                ['Perfiles', 'perfiles.index', 'escudo', 'perfiles.*'],
+                ['Mi cuenta', 'profile.edit', 'usuario', 'profile.*'],
+            ],
+        ];
+        $usuario = auth()->user();
+    @endphp
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- Barra lateral --}}
+    <div x-show="lateral" x-cloak x-transition.opacity class="fixed inset-0 z-30 bg-night/50 backdrop-blur-sm lg:hidden" @click="lateral = false"></div>
+    <aside class="fixed inset-y-3 left-3 z-40 flex w-64 -translate-x-[110%] flex-col rounded-[1.75rem] bg-surface p-4 shadow-lift ring-1 ring-line transition duration-700 ease-[var(--ease-spring)] lg:translate-x-0 lg:shadow-soft"
+        :class="lateral && '!translate-x-0'" aria-label="Navegación del back office">
+        <div class="flex items-center justify-between px-2 pb-6 pt-2">
+            <a href="{{ route('dashboard') }}"><x-logo tamano="size-8" /></a>
+            <button type="button" class="inline-flex size-9 items-center justify-center rounded-full ring-1 ring-line-strong lg:hidden" @click="lateral = false" aria-label="Cerrar menú">
+                <x-icono nombre="cerrar" clase="size-4" />
+            </button>
+        </div>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <nav class="flex-1 space-y-6 overflow-y-auto">
+            @foreach ($grupos as $grupo => $enlaces)
+                <div>
+                    <p class="px-3 pb-2 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink-3">{{ $grupo }}</p>
+                    <div class="space-y-1">
+                        @foreach ($enlaces as [$texto, $ruta, $icono, $patron])
+                            <a href="{{ route($ruta) }}" class="nav-pill" @if (request()->routeIs($patron)) aria-current="page" @endif>
+                                <x-icono :nombre="$icono" clase="size-[1.15rem]" />
+                                {{ $texto }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </nav>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+        <div class="mt-4 rounded-2xl bg-surface-2 p-3 ring-1 ring-line">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">{{ $usuario->iniciales() }}</span>
+                <div class="min-w-0">
+                    <p class="truncate text-sm font-semibold">{{ $usuario->name }}</p>
+                    <p class="truncate text-xs text-ink-3">{{ $usuario->perfil?->nombre ?? 'Sin perfil' }}</p>
+                </div>
+            </div>
+            <form method="POST" action="{{ route('logout') }}" class="mt-3">
+                @csrf
+                <button type="submit" class="btn btn-ghost btn-sm w-full">
+                    <x-icono nombre="salir" clase="size-4" /> Cerrar sesión
+                </button>
+            </form>
+        </div>
+    </aside>
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="lg:pl-[17.5rem]">
+        <header class="sticky top-0 z-20 px-4 pt-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between gap-3 rounded-full bg-surface/75 py-2 pl-3 pr-2 shadow-soft ring-1 ring-line backdrop-blur-xl sm:pl-5">
+                <div class="flex min-w-0 items-center gap-2">
+                    <button type="button" class="inline-flex size-10 items-center justify-center rounded-full ring-1 ring-line-strong lg:hidden" @click="lateral = true" aria-label="Abrir menú">
+                        <x-icono nombre="menu" clase="size-5" />
+                    </button>
+                    <p class="truncate text-sm text-ink-3">
+                        <span class="hidden sm:inline">Back office</span>
+                        @if ($titulo)<span class="hidden sm:inline px-1.5">/</span><span class="font-semibold text-ink">{{ $titulo }}</span>@endif
+                    </p>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    @cannot('administrar')
+                        <span class="badge badge-muted hidden sm:inline-flex">Solo lectura</span>
+                    @endcannot
+                    <a href="{{ route('inicio') }}" class="btn btn-ghost btn-sm h-10" target="_blank" rel="noopener">
+                        <x-icono nombre="tienda" clase="size-4" /> <span class="hidden sm:inline">Ver tienda</span>
+                    </a>
+                    <x-tema-toggle />
+                </div>
+            </div>
+        </header>
+
+        <main class="px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl">
+                <x-flash />
+                @isset($header)
+                    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                         {{ $header }}
                     </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
+                @endisset
                 {{ $slot }}
-            </main>
-        </div>
-    </body>
+            </div>
+        </main>
+    </div>
+    @stack('scripts')
+</body>
 </html>

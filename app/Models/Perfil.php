@@ -4,17 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Perfil extends Model
 {
     use HasFactory;
 
-    protected $table = 'perfiles'; // Especifica la tabla si no es "perfils"
+    public const ADMINISTRADOR = 'Administrador';
 
-    protected $fillable = ['nombre', 'fechaRegistro', 'estadoUsuario', 'descripcion']; // Incluye los campos que usas en el formulario
+    public const CONSULTA = 'Consulta';
 
-    // Relación con el modelo User
-    public function users()
+    protected $table = 'perfiles';
+
+    protected $fillable = ['nombre', 'descripcion', 'estado', 'fecha_registro'];
+
+    protected function casts(): array
+    {
+        return ['fecha_registro' => 'date'];
+    }
+
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'perfil_id');
     }

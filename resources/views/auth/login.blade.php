@@ -1,87 +1,40 @@
-@extends('master') {{-- Asegúrate de que esto extienda tu layout principal --}}
+<x-guest-layout titulo="Iniciar sesión">
+    <p class="eyebrow">Bienvenida de vuelta</p>
+    <h1 class="mt-5 font-display text-3xl font-semibold tracking-tight">Inicia sesión</h1>
+    <p class="mt-2 text-ink-2">Entra al back office para gestionar pedidos, clientes y facturas.</p>
 
-@section('contenido')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg p-4 border-0">
-                <div class="card-body">
-                    <h3 class="card-title text-center mb-4">Iniciar Sesión</h3>
+    <x-auth-session-status class="mt-6" :status="session('status')" />
 
-                    {{-- Alerta de estado de sesión --}}
-                    @if (session('status'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('status') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        {{-- Campo de Correo Electrónico --}}
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input id="email" 
-                                   type="email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   required 
-                                   autofocus 
-                                   autocomplete="username">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        {{-- Campo de Contraseña --}}
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input id="password" 
-                                   type="password" 
-                                   name="password" 
-                                   class="form-control @error('password') is-invalid @enderror" 
-                                   required 
-                                   autocomplete="current-password">
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        {{-- Recordarme --}}
-                        <div class="form-check mb-4">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember_me">
-                            <label class="form-check-label" for="remember_me">
-                                Recordarme
-                            </label>
-                        </div>
-
-                        {{-- Botones y enlaces --}}
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            @if (Route::has('password.request'))
-                                <a class="text-muted text-decoration-none small" href="{{ route('password.request') }}">
-                                    ¿Olvidaste tu contraseña?
-                                </a>
-                            @endif
-                            @if (Route::has('register'))
-                                <a class="text-muted text-decoration-none small" href="{{ route('register') }}">
-                                    ¿No tienes una cuenta? Regístrate
-                                </a>
-                            @endif
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-5">
+        @csrf
+        <div>
+            <x-input-label for="email" value="Correo electrónico" />
+            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" />
         </div>
+        <div>
+            <div class="flex items-center justify-between">
+                <x-input-label for="password" value="Contraseña" />
+                @if (Route::has('password.request'))
+                    <a class="mb-1.5 text-xs font-semibold text-brand hover:underline" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
+                @endif
+            </div>
+            <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+            <x-input-error :messages="$errors->get('password')" />
+        </div>
+        <label for="remember_me" class="flex items-center gap-2.5 text-sm text-ink-2">
+            <input id="remember_me" type="checkbox" name="remember" class="size-4 rounded border-line-strong text-accent focus:ring-accent">
+            Mantener sesión iniciada
+        </label>
+        <button type="submit" class="btn btn-primary w-full justify-between py-3.5 pl-6 pr-3">Entrar <span class="btn-orb"><x-icono nombre="flecha" clase="size-4" /></span></button>
+    </form>
+
+    <div class="mt-8 rounded-2xl bg-surface-2 p-4 text-sm text-ink-2 ring-1 ring-line">
+        <p class="font-semibold text-ink">Cuentas de demostración</p>
+        <p class="mt-1">Administrador: <span class="num">admin@example.com</span> &middot; Consulta: <span class="num">consulta@example.com</span> &middot; contraseña <span class="num">password</span></p>
     </div>
-</div>
-@endsection
+
+    @if (Route::has('register'))
+        <p class="mt-6 text-center text-sm text-ink-2">¿No tienes cuenta? <a href="{{ route('register') }}" class="link">Regístrate</a></p>
+    @endif
+</x-guest-layout>
