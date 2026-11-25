@@ -166,20 +166,49 @@
         background-size: 46px 46px, 62px 62px, auto, auto;
     }
 
+    /* Listón de satín: puntas en cola de golondrina y costura punteada.
+       Colores fijos (morado de la marca + texto blanco) para que se lea igual en claro y oscuro. */
     .eyebrow {
+        position: relative;
         display: inline-flex;
         width: fit-content;
         align-items: center;
         gap: 0.45rem;
-        border-radius: 9999px;
-        padding: 0.3rem 0.85rem;
+        padding: 0.4rem 1.45rem;
         font-family: var(--font-display);
         font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        color: var(--brand-strong);
-        background: var(--brand-soft);
-        border: 2px solid var(--line-strong);
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: #fff;
+        background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0) 45%, rgb(0 0 0 / 0.14) 100%),
+            linear-gradient(90deg, #8a4fb0, #7b4397 50%, #6a2f8f);
+        clip-path: polygon(0 0, 100% 0, calc(100% - 0.6rem) 50%, 100% 100%, 0 100%, 0.6rem 50%);
+    }
+
+    .eyebrow::before {
+        content: '';
+        position: absolute;
+        inset: 0.2rem 0.95rem;
+        border-block: 1px dashed rgb(255 255 255 / 0.5);
+        pointer-events: none;
+    }
+
+    /* Estampita recortada (sticker con borde blanco), un poco ladeada. */
+    .estampita {
+        width: 4.75rem;
+        height: auto;
+        rotate: 9deg;
+        filter: drop-shadow(0 3px 0 var(--sticker)) drop-shadow(0 8px 14px rgb(42 24 56 / 0.25));
+        transition: rotate 200ms ease;
+    }
+
+    .estampita:hover {
+        rotate: -4deg;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .estampita { transition: none; }
     }
 
     /* Tarjeta tipo sticker: borde grueso y sombra desplazada. */
@@ -336,23 +365,19 @@
         color: var(--ink-2);
     }
 
+    /* Estado como sello de goma: borde del color del estado, mayúsculas y un poco ladeado. */
     .badge {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        border-radius: 9999px;
-        padding: 0.22rem 0.7rem;
-        font-size: 0.75rem;
+        border: 1.5px solid currentColor;
+        border-radius: 0.4rem;
+        padding: 0.12rem 0.5rem;
+        font-size: 0.68rem;
         font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
         white-space: nowrap;
-    }
-
-    .badge::before {
-        content: '';
-        height: 0.45rem;
-        width: 0.45rem;
-        border-radius: 9999px;
-        background: currentColor;
+        rotate: -2deg;
     }
 
     .badge-ok { background: var(--ok-soft); color: var(--ok); }

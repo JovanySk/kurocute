@@ -1,5 +1,8 @@
 <x-guest-layout titulo="Iniciar sesión">
-    <p class="eyebrow">Bienvenida de vuelta</p>
+    <div class="flex items-center gap-3">
+        <p class="eyebrow">Bienvenida de vuelta</p>
+        <img src="{{ asset('images/estampita-kuromi.png') }}" alt="" width="287" height="320" class="estampita -my-4">
+    </div>
     <h1 class="mt-5 font-display text-3xl font-semibold tracking-tight">Inicia sesión</h1>
     <p class="mt-2 text-ink-2">Entra al back office para gestionar pedidos, clientes y facturas.</p>
 
