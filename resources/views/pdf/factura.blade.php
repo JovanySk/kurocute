@@ -144,7 +144,7 @@
     <div class="pie">
         <table>
             <tr>
-                <td>¿Dudas? Escríbenos en {{ preg_replace('#^https?://#', '', route('contacto')) }}</td>
+                <td>¿Dudas? Escríbenos desde la sección Contacto de la tienda.</td>
                 <td class="der">Representación impresa de demostración, sin validez fiscal.</td>
             </tr>
         </table>
