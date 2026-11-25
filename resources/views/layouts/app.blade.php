@@ -5,7 +5,6 @@
     @stack('head')
 </head>
 <body class="kc-backdrop min-h-[100dvh] antialiased" x-data="{ lateral: false }">
-    <x-arte-sprite />
     @php
         $grupos = [
             'General' => [
@@ -30,10 +29,10 @@
 
     {{-- Barra lateral --}}
     <div x-show="lateral" x-cloak x-transition.opacity class="fixed inset-0 z-30 bg-night/50 backdrop-blur-sm lg:hidden" @click="lateral = false"></div>
-    <aside class="fixed inset-y-3 left-3 z-40 flex w-64 -translate-x-[110%] flex-col rounded-[1.75rem] bg-surface p-4 shadow-lift ring-1 ring-line transition duration-700 ease-[var(--ease-spring)] lg:translate-x-0 lg:shadow-soft"
+    <aside class="fixed inset-y-3 left-3 z-40 flex w-64 -translate-x-[110%] flex-col rounded-[1.75rem] border-[3px] border-sticker bg-surface p-4 shadow-sticker transition duration-700 ease-[var(--ease-spring)] lg:translate-x-0 lg:shadow-soft"
         :class="lateral && '!translate-x-0'" aria-label="Navegación del back office">
         <div class="flex items-center justify-between px-2 pb-6 pt-2">
-            <a href="{{ route('dashboard') }}"><x-logo tamano="size-8" /></a>
+            <a href="{{ route('dashboard') }}"><x-logo tamano="size-10" /></a>
             <button type="button" class="inline-flex size-9 items-center justify-center rounded-full ring-1 ring-line-strong lg:hidden" @click="lateral = false" aria-label="Cerrar menú">
                 <x-icono nombre="cerrar" clase="size-4" />
             </button>
@@ -55,9 +54,12 @@
             @endforeach
         </nav>
 
-        <div class="mt-4 rounded-2xl bg-surface-2 p-3 ring-1 ring-line">
+        <div class="relative mt-4 overflow-hidden rounded-2xl border-2 border-line-strong bg-brand-soft">
+            <img src="{{ asset('images/descarga5.jpg') }}" alt="Kuromi" class="h-20 w-full object-cover">
+        </div>
+        <div class="mt-3 rounded-2xl border-2 border-line bg-surface-2 p-3">
             <div class="flex items-center gap-3">
-                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">{{ $usuario->iniciales() }}</span>
+                <img src="{{ asset('images/Usuario.jpg') }}" alt="" class="size-10 shrink-0 rounded-full border-2 border-line-strong object-cover">
                 <div class="min-w-0">
                     <p class="truncate text-sm font-semibold">{{ $usuario->name }}</p>
                     <p class="truncate text-xs text-ink-3">{{ $usuario->perfil?->nombre ?? 'Sin perfil' }}</p>
@@ -74,7 +76,7 @@
 
     <div class="lg:pl-[17.5rem]">
         <header class="sticky top-0 z-20 px-4 pt-3 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between gap-3 rounded-full bg-surface/75 py-2 pl-3 pr-2 shadow-soft ring-1 ring-line backdrop-blur-xl sm:pl-5">
+            <div class="flex items-center justify-between gap-3 rounded-full border-2 border-line-strong bg-surface/85 py-2 pl-3 pr-2 shadow-soft backdrop-blur-xl sm:pl-5">
                 <div class="flex min-w-0 items-center gap-2">
                     <button type="button" class="inline-flex size-10 items-center justify-center rounded-full ring-1 ring-line-strong lg:hidden" @click="lateral = true" aria-label="Abrir menú">
                         <x-icono nombre="menu" clase="size-5" />

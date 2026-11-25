@@ -17,49 +17,39 @@ use Illuminate\Support\Str;
 
 /**
  * Datos ficticios para demostrar la tienda y el back office.
- * Todos los nombres son inventados y los correos usan @example.com.
- * Los archivos (avatares, PDF y XML) se generan aquí mismo.
+ * Los clientes son inventados y los correos usan @example.com.
+ * Las fotos de producto son las imágenes originales del proyecto (public/images y public/productos);
+ * se copian al disco public al sembrar. Los PDF y XML de las facturas se generan aquí mismo.
  */
 class DemoSeeder extends Seeder
 {
+    /** nombre => [descripción, portada] */
     private const CATEGORIAS = [
-        'Peluches' => 'Suavecitos, abrazables y un poquito rebeldes.',
-        'Papelería' => 'Libretas, plumas y stickers para tus noches creativas.',
-        'Accesorios' => 'Detalles para llevar contigo a todas partes.',
-        'Hogar' => 'Tu cuarto, pero con más estrellas.',
-        'Ropa' => 'Comodidad oversize con actitud.',
-        'Coleccionables' => 'Piezas de edición limitada para tu repisa.',
+        'Peluches Kuromi' => ['Peluches suavecitos y figuras coleccionables de Kuromi para tu repisa o tu cama.', 'images/ima4.jpg'],
+        'Maquillaje' => ['Labiales, gloss, polvos y brochas para un look tierno o atrevido.', 'images/imagen4.jpg'],
+        'Motos' => ['Motocicletas deportivas y urbanas. Entrega con factura y asesoría de pago.', 'images/img1.jpg'],
     ];
 
+    /** [nombre, categoría, precio, descripción, destacado, foto original] */
     private const PRODUCTOS = [
-        ['Peluche Luna Traviesa', 'Peluches', 459, 'Peluche de felpa extra suave con forma de media luna y mejillas bordadas. 30 cm.', true],
-        ['Peluche Murciélago Bombón', 'Peluches', 389, 'Murcielaguito regordete con alas de terciopelo lila. Ideal para regalar.', true],
-        ['Cojín Nube Gótica', 'Peluches', 529, 'Cojín en forma de nube con bordado de estrellas y relleno hipoalergénico.', false],
-        ['Llavero Estrellita Rebelde', 'Peluches', 129, 'Mini peluche con argolla metálica para mochila o llaves.', false],
-        ['Peluche Gatito Medianoche', 'Peluches', 499, 'Gatito negro de ojos rosados con cascabel. 28 cm.', true],
-        ['Libreta Noche Estrellada', 'Papelería', 149, 'Libreta A5 de 160 hojas punteadas con tapa dura y esquinas redondeadas.', true],
-        ['Set de Plumas Gel Lavanda', 'Papelería', 119, 'Seis plumas de gel en tonos lavanda, rosa y negro. Punta 0.5 mm.', false],
-        ['Agenda 2027 Media Luna', 'Papelería', 289, 'Agenda semanal con calendario lunar, stickers y separador de listón.', false],
-        ['Stickers Holográficos Constelación', 'Papelería', 79, 'Plancha de 40 stickers holográficos resistentes al agua.', false],
-        ['Washi Tape Corazones Oscuros', 'Papelería', 69, 'Rollo de cinta decorativa de 10 m con corazones y lunas.', false],
-        ['Diadema Orejitas de Terciopelo', 'Accesorios', 219, 'Diadema acolchada con orejitas puntiagudas y moño rosa.', true],
-        ['Mochila Mini Luna', 'Accesorios', 749, 'Mochila de vinil acolchado con bolsillo frontal y herrajes plateados.', true],
-        ['Cartera Corazón Acolchado', 'Accesorios', 339, 'Cartera compacta con cierre y forma de corazón.', false],
-        ['Pinzas para Cabello Estrella', 'Accesorios', 99, 'Juego de cuatro pinzas metálicas con esmalte rosa y negro.', false],
-        ['Funda para Celular Lazo Negro', 'Accesorios', 259, 'Funda de silicón suave con lazo en relieve. Varios modelos.', false],
-        ['Taza Cerámica Luna Rosa', 'Hogar', 189, 'Taza de 350 ml con asa en forma de media luna. Apta para microondas.', true],
-        ['Lámpara de Noche Planeta', 'Hogar', 649, 'Lámpara LED recargable con luz cálida y tres niveles de brillo.', true],
-        ['Vela Aromática Lavanda Nocturna', 'Hogar', 239, 'Vela de soya en frasco de vidrio ahumado. 40 horas de duración.', false],
-        ['Manta Polar Cielo Violeta', 'Hogar', 699, 'Manta de 150 x 200 cm estampada con constelaciones.', false],
-        ['Sudadera Oversize Estrellas', 'Ropa', 899, 'Sudadera de algodón perchado con capucha y bordado de estrellas.', true],
-        ['Pijama Satinado Media Noche', 'Ropa', 759, 'Conjunto de pijama de satín con ribete rosa. Tallas CH a G.', false],
-        ['Calcetas Tobilleras Corazón', 'Ropa', 159, 'Paquete de tres pares de calcetas con corazones tejidos.', false],
-        ['Gorro Tejido Orejitas', 'Ropa', 279, 'Gorro de punto con orejitas y forro polar interior.', false],
-        ['Figura Vinilo Lunita Edición Noche', 'Coleccionables', 599, 'Figura de vinil de 12 cm numerada a mano. Edición de 500 piezas.', true],
-        ['Caja Misteriosa Constelación', 'Coleccionables', 349, 'Caja sorpresa con una de ocho mini figuras. Una es secreta.', true],
-        ['Pin Esmaltado Corazón Alado', 'Coleccionables', 89, 'Pin de esmalte duro con acabado brillante y doble poste.', false],
-        ['Mini Figura Gatito Brujo', 'Coleccionables', 249, 'Mini figura de resina pintada a mano. 7 cm.', false],
-        ['Globo de Nieve Galaxia', 'Coleccionables', 429, 'Globo de nieve con brillos violeta y base de madera.', false],
+        ['Figura Kuromi Corazón Lila', 'Peluches Kuromi', 329, 'Figura de vinil de Kuromi abrazando un corazón rosa. 12 cm, ideal para escritorio.', true, 'productos/descarga.jpg'],
+        ['Figura Kuromi con Tridente en Caja', 'Peluches Kuromi', 459, 'Figura coleccionable de Kuromi con su tridente dorado, en caja de exhibición.', true, 'productos/descarga2.jpg'],
+        ['Peluche Kuromi Esponjoso con Moño', 'Peluches Kuromi', 549, 'Peluche de felpa extra suave con moño y pancita lila. 30 cm.', true, 'productos/descarga3.jpg'],
+        ['Peluche Kuromi Vestido Lila Gigante', 'Peluches Kuromi', 689, 'Kuromi grande con vestido lila y orejitas rellenas. Perfecto para abrazar. 45 cm.', true, 'productos/descarga5.jpg'],
+        ['Peluche Kuromi Clásico 25 cm', 'Peluches Kuromi', 399, 'El clásico: capucha negra, calavera rosa y sonrisa traviesa. 25 cm.', false, 'productos/descarga6.jpg'],
+        ['Figura Kuromi Edición Coleccionista', 'Peluches Kuromi', 499, 'Figura en tonos lila con llave mágica, en caja ilustrada de edición especial.', true, 'productos/descarga7.jpg'],
+        ['Labial Cremoso Rosa Malva', 'Maquillaje', 189, 'Labial de acabado satinado en tono rosa malva. Hidrata y dura hasta 8 horas.', true, 'images/2.jpg'],
+        ['Labial Rojo Intenso Larga Duración', 'Maquillaje', 219, 'Rojo clásico de alta pigmentación que no se transfiere. Acabado mate.', false, 'images/imagen3.jpg'],
+        ['Kit de Brochas y Paleta de Sombras', 'Maquillaje', 649, 'Paleta de 18 sombras en tonos nude y rosa con set de brochas suaves.', true, 'images/imagen4.jpg'],
+        ['Gloss Efecto Espejo', 'Maquillaje', 159, 'Brillo labial transparente con efecto espejo y aroma a fresa.', false, 'images/imagen45.jpg'],
+        ['Polvo Compacto Matificante', 'Maquillaje', 199, 'Polvo compacto que controla el brillo y difumina poros. Incluye espejo.', false, 'images/imagen5.jpg'],
+        ['Aceite Labial Rosado', 'Maquillaje', 179, 'Aceite labial con color translúcido, hidratación y brillo natural.', true, 'productos/descarga4.jpg'],
+        ['Moto Naked 200 cc Negro y Rojo', 'Motos', 45900, 'Motocicleta naked de 200 cc, frenos de disco y tablero digital. Ideal para ciudad.', false, 'productos/apache2.jpg'],
+        ['Moto Sport Carenada 200 cc', 'Motos', 62900, 'Deportiva carenada de 200 cc con faro LED y posición de manejo sport.', true, 'productos/bajaj1.jpg'],
+        ['Moto Urbana 300 cc Roja', 'Motos', 48500, 'Motocicleta urbana de 300 cc con suspensión invertida y luces LED.', false, 'productos/veloci4.jpg'],
+        ['Moto Deportiva 400 cc Verde Pista', 'Motos', 139900, 'Deportiva de 400 cc en verde lima, lista para pista y carretera.', true, 'images/img1.jpg'],
+        ['Moto Deportiva 650 cc Verde Ciudad', 'Motos', 189900, 'Bicilíndrica de 650 cc con carenado completo y control de tracción.', false, 'images/img2.jpg'],
+        ['Moto Sport Touring 650 cc', 'Motos', 179900, 'Sport touring de 650 cc, cómoda para viajes largos y uso diario.', false, 'images/img3.jpg'],
     ];
 
     private const CLIENTES = [
@@ -71,36 +61,43 @@ class DemoSeeder extends Seeder
         ['Papelería La Constelación', true], ['Regalos Medianoche', true], ['Bazar Luna Violeta', true],
     ];
 
-    private const PALETA = [[107, 63, 160], [236, 72, 153], [58, 36, 92], [190, 120, 220], [244, 114, 182], [76, 29, 149]];
-
     public function run(): void
     {
         mt_srand(2026);
         fake()->seed(2026);
 
-        Storage::disk('public')->deleteDirectory('clientes');
         Storage::disk('public')->deleteDirectory('facturas');
+        Storage::disk('public')->deleteDirectory('productos');
 
-        $categorias = collect(self::CATEGORIAS)->map(fn (string $descripcion, string $nombre) => Categoria::create([
+        $categorias = collect(self::CATEGORIAS)->map(fn (array $c, string $nombre) => Categoria::create([
             'nombre' => $nombre,
-            'slug' => Str::slug($nombre),
-            'descripcion' => $descripcion,
+            'slug' => Str::slug($nombre === 'Peluches Kuromi' ? 'kuromi' : $nombre),
+            'descripcion' => $c[0],
+            'imagen' => $c[1],
         ]));
 
-        $productos = collect(self::PRODUCTOS)->map(fn (array $p) => Producto::create([
-            'categoria_id' => $categorias[$p[1]]->id,
-            'nombre' => $p[0],
-            'slug' => Str::slug($p[0]),
-            'descripcion' => $p[3],
-            'precio' => $p[2],
-            'stock' => mt_rand(0, 9) === 0 ? mt_rand(1, 4) : mt_rand(12, 60),
-            'destacado' => $p[4],
-            'activo' => true,
-        ]));
+        $productos = collect(self::PRODUCTOS)->map(function (array $p) use ($categorias) {
+            // Copia la foto original al disco public para que funcione igual que una subida desde el admin.
+            $destino = 'productos/'.Str::slug($p[0]).'.'.pathinfo($p[5], PATHINFO_EXTENSION);
+            Storage::disk('public')->put($destino, file_get_contents(public_path($p[5])));
+
+            return Producto::create([
+                'categoria_id' => $categorias[$p[1]]->id,
+                'nombre' => $p[0],
+                'slug' => Str::slug($p[0]),
+                'descripcion' => $p[3],
+                'precio' => $p[2],
+                'stock' => $p[2] > 10000 ? mt_rand(1, 4) : (mt_rand(0, 9) === 0 ? mt_rand(1, 4) : mt_rand(12, 60)),
+                'destacado' => $p[4],
+                'activo' => true,
+                'imagen' => $destino,
+            ]);
+        })->values();
 
         $clientes = collect(self::CLIENTES)->values()->map(function (array $c, int $i) {
             [$nombre, $empresa] = $c;
-            $cliente = Cliente::create([
+
+            return Cliente::create([
                 'nombre' => $empresa ? "{$nombre} SA de CV" : $nombre,
                 'rfc' => $this->rfc($nombre, $empresa, $i),
                 'direccion' => $this->direccion($i),
@@ -108,12 +105,6 @@ class DemoSeeder extends Seeder
                 'email' => Str::slug($nombre, '.').'@example.com',
                 'descripcion' => $empresa ? 'Cliente mayorista. Compra para reventa en su tienda física.' : null,
             ]);
-
-            if ($i % 3 !== 2) {
-                $cliente->update(['imagen' => $this->avatar($cliente, $i)]);
-            }
-
-            return $cliente;
         });
 
         $this->pedidosYFacturas($clientes, $productos);
@@ -127,9 +118,11 @@ class DemoSeeder extends Seeder
         $personas = $clientes->take(15);
         $empresas = $clientes->slice(15);
         $porCrear = [];
+        $tienda = $productos->filter(fn (Producto $p) => (float) $p->precio < 10000)->values();
+        $motos = $productos->diff($tienda)->sortBy('precio')->values();
 
         // Pedidos en línea a lo largo del último año, con crecimiento en los meses recientes.
-        $fechas = collect(range(1, 42))
+        $fechas = collect(range(1, 64))
             ->map(fn () => $hoy->copy()->subDays((int) floor(pow(mt_rand(0, 1000) / 1000, 1.35) * 360))->setTime(mt_rand(9, 21), mt_rand(0, 59)))
             ->push($hoy->copy()->subHours(5), $hoy->copy()->subDay()->setTime(18, 20), $hoy->copy()->subDays(2)->setTime(11, 5))
             ->sort()
@@ -155,18 +148,7 @@ class DemoSeeder extends Seeder
                 'updated_at' => $fecha,
             ]);
 
-            foreach ($productos->random(mt_rand(1, 4)) as $producto) {
-                $cantidad = mt_rand(1, 3);
-                $pedido->items()->create([
-                    'producto_id' => $producto->id,
-                    'nombre' => $producto->nombre,
-                    'cantidad' => $cantidad,
-                    'precio_unitario' => $producto->precio,
-                    'subtotal' => round((float) $producto->precio * $cantidad, 2),
-                ]);
-            }
-
-            $pedido->update(['total' => $pedido->items()->sum('subtotal')]);
+            $this->partidas($pedido, $tienda->random(mt_rand(1, 3)));
 
             if ($estadoPedido === 'cancelado' || $estadoPedido === 'nuevo') {
                 continue;
@@ -183,8 +165,31 @@ class DemoSeeder extends Seeder
             ] + Factura::importesDesdeTotal((float) $pedido->total));
         }
 
+        // Motos: venta ocasional (dos en el año), siempre fuera del mes actual y del anterior.
+        foreach ([[250, 0], [130, 1]] as [$diasAtras, $indice]) {
+            $fecha = $hoy->copy()->subDays($diasAtras)->setTime(12, 30);
+            $cliente = $personas->random();
+            $pedido = Pedido::create([
+                'folio' => 'PED-M'.str_pad((string) ($indice + 1), 4, '0', STR_PAD_LEFT),
+                'cliente_id' => $cliente->id,
+                'estado' => 'entregado',
+                'total' => 0,
+                'created_at' => $fecha,
+                'updated_at' => $fecha,
+            ]);
+            $this->partidas($pedido, collect([$motos[$indice]]), 1);
+            $porCrear[] = [
+                'cliente_id' => $cliente->id,
+                'pedido_id' => $pedido->id,
+                'forma_pago_id' => $formas[0],
+                'fecha_emision' => $fecha->copy()->addDay(),
+                'detalles' => "Pedido en línea {$pedido->folio}",
+                'estado_id' => $estado(EstadoFactura::PAGADA),
+            ] + Factura::importesDesdeTotal((float) $pedido->total);
+        }
+
         // Ventas de mayoreo facturadas directamente.
-        foreach (range(1, 14) as $i) {
+        foreach (range(1, 10) as $i) {
             $emision = $hoy->copy()->subDays($i <= 3 ? mt_rand(1, 12) : mt_rand(2, 330))->startOfDay();
             $clave = match (true) {
                 $i <= 2 => EstadoFactura::PENDIENTE,
@@ -195,9 +200,9 @@ class DemoSeeder extends Seeder
                 'cliente_id' => $empresas->random()->id,
                 'forma_pago_id' => $formas[0],
                 'fecha_emision' => $emision,
-                'detalles' => 'Venta de mayoreo: surtido de '.collect(['peluches', 'papelería', 'accesorios', 'coleccionables'])->random(2)->implode(' y ').' para reventa.',
+                'detalles' => 'Venta de mayoreo: surtido de '.collect(['peluches de Kuromi', 'figuras de Kuromi', 'labiales', 'paletas de sombras'])->random(2)->implode(' y ').' para reventa.',
                 'estado_id' => $estado($clave),
-            ] + Factura::importesDesdeSubtotal(mt_rand(180, 1450) * 10));
+            ] + Factura::importesDesdeSubtotal(mt_rand(120, 520) * 10));
         }
 
         // Mes en curso realista: cobros pagados este mes con una variacion creible frente al mes anterior.
@@ -208,20 +213,53 @@ class DemoSeeder extends Seeder
         $anterior = $cobradoEn($hoy->copy()->subMonthNoOverflow()) ?: 24000;
         $faltante = $anterior * mt_rand(108, 122) / 100 - $cobradoEn($hoy);
 
-        for ($k = 0; $faltante > 500 && $k < 6; $k++) {
-            $total = $k === 5 ? $faltante : min($faltante, mt_rand(25, 70) * 100);
-            $faltante -= $total;
+        $folio = 1;
+        while ($faltante > 150) {
+            $fecha = $hoy->copy()->startOfMonth()->addDays(mt_rand(0, max(0, $hoy->day - 2)))->setTime(mt_rand(10, 19), mt_rand(0, 59));
+            $cliente = $personas->random();
+            $pedido = Pedido::create([
+                'folio' => 'PED-A'.str_pad((string) $folio++, 4, '0', STR_PAD_LEFT),
+                'cliente_id' => $cliente->id,
+                'estado' => 'entregado',
+                'total' => 0,
+                'created_at' => $fecha,
+                'updated_at' => $fecha,
+            ]);
+            // Cerca de la meta se agrega una sola pieza que quepa, para no pasarse.
+            $caben = $tienda->filter(fn (Producto $p) => (float) $p->precio <= $faltante);
+            $faltante > 1800
+                ? $this->partidas($pedido, $tienda->random(mt_rand(1, 2)), 1)
+                : $this->partidas($pedido, $caben->isEmpty() ? $tienda->sortBy('precio')->take(1) : $caben->random(1), 1);
+            $faltante -= (float) $pedido->total;
             $porCrear[] = [
-                'cliente_id' => ($k % 2 ? $personas : $empresas)->random()->id,
+                'cliente_id' => $cliente->id,
+                'pedido_id' => $pedido->id,
                 'forma_pago_id' => $formas[array_rand($formas)],
-                'fecha_emision' => $hoy->copy()->startOfMonth()->addDays(mt_rand(0, max(0, $hoy->day - 1)))->startOfDay(),
-                'detalles' => 'Venta de mostrador y mayoreo del mes.',
+                'fecha_emision' => $fecha->copy()->min($hoy),
+                'detalles' => "Pedido en línea {$pedido->folio}",
                 'estado_id' => $pagada,
-            ] + Factura::importesDesdeTotal(round($total, 2));
+            ] + Factura::importesDesdeTotal((float) $pedido->total);
         }
 
         // Se crean en orden cronológico para que la numeracion KC-AAAA-0001 sea consecutiva.
         collect($porCrear)->sortBy(fn (array $f) => $f['fecha_emision']->timestamp)->each(fn (array $f) => $this->factura($f));
+    }
+
+    /** Agrega partidas al pedido y recalcula su total. */
+    private function partidas(Pedido $pedido, $articulos, ?int $cantidadFija = null): void
+    {
+        foreach ($articulos as $producto) {
+            $cantidad = $cantidadFija ?? mt_rand(1, 3);
+            $pedido->items()->create([
+                'producto_id' => $producto->id,
+                'nombre' => $producto->nombre,
+                'cantidad' => $cantidad,
+                'precio_unitario' => $producto->precio,
+                'subtotal' => round((float) $producto->precio * $cantidad, 2),
+            ]);
+        }
+
+        $pedido->update(['total' => $pedido->items()->sum('subtotal')]);
     }
 
     private function estadoPorAntiguedad(Carbon $emision, Carbon $hoy): string
@@ -289,34 +327,5 @@ XML;
         $fecha = sprintf('%02d%02d%02d', 80 + ($i % 20), 1 + ($i % 12), 1 + ($i % 28));
 
         return $letras.$fecha.strtoupper(substr(md5($nombre), 0, 3));
-    }
-
-    /** Avatar PNG con iniciales, generado con GD (no son fotos reales). */
-    private function avatar(Cliente $cliente, int $i): string
-    {
-        $tam = 256;
-        $img = imagecreatetruecolor($tam, $tam);
-        [$r, $g, $b] = self::PALETA[$i % count(self::PALETA)];
-        imagefill($img, 0, 0, imagecolorallocate($img, $r, $g, $b));
-
-        $brillo = imagecolorallocatealpha($img, 255, 255, 255, 105);
-        imagefilledellipse($img, (int) ($tam * 0.78), (int) ($tam * 0.2), 190, 190, $brillo);
-        imagefilledellipse($img, (int) ($tam * 0.15), (int) ($tam * 0.92), 120, 120, imagecolorallocatealpha($img, 15, 10, 25, 100));
-
-        $fuente = base_path('vendor/dompdf/dompdf/lib/fonts/DejaVuSans-Bold.ttf');
-        $texto = $cliente->iniciales();
-        $caja = imagettfbbox(78, 0, $fuente, $texto);
-        $x = (int) (($tam - ($caja[2] - $caja[0])) / 2 - $caja[0]);
-        $y = (int) (($tam - ($caja[1] - $caja[7])) / 2 - $caja[7]);
-        imagettftext($img, 78, 0, $x, $y, imagecolorallocate($img, 255, 255, 255), $fuente, $texto);
-
-        ob_start();
-        imagepng($img);
-        $png = ob_get_clean();
-
-        $ruta = 'clientes/avatar-'.$cliente->id.'.png';
-        Storage::disk('public')->put($ruta, $png);
-
-        return $ruta;
     }
 }

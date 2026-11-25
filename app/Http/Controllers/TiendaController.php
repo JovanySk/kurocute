@@ -12,8 +12,8 @@ class TiendaController extends Controller
 {
     public function inicio(): View
     {
-        $destacados = Producto::with('categoria')->visibles()->where('destacado', true)->latest()->take(8)->get();
-        $categorias = Categoria::withCount(['productos' => fn ($q) => $q->where('activo', true)])->orderBy('nombre')->get();
+        $destacados = Producto::with('categoria')->visibles()->where('destacado', true)->orderBy('categoria_id')->orderBy('id')->take(8)->get();
+        $categorias = Categoria::withCount(['productos' => fn ($q) => $q->where('activo', true)])->orderBy('id')->get();
 
         return view('tienda.inicio', [
             'destacados' => $destacados,
@@ -27,7 +27,7 @@ class TiendaController extends Controller
         $filtros = $this->filtros($request);
 
         return view('tienda.catalogo', [
-            'categorias' => Categoria::orderBy('nombre')->get(),
+            'categorias' => Categoria::orderBy('id')->get(),
             'filtros' => $filtros,
             'productos' => $this->consulta($filtros)->map->paraCatalogo()->values(),
         ]);

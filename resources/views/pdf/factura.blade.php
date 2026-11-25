@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Factura {{ $factura->numero }}</title>
     @php
-        $logo = 'data:image/svg+xml;base64,'.base64_encode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#2a1740"/><path d="M24.6 10.2a10 10 0 1 0 6.1 15.6A8.2 8.2 0 0 1 24.6 10.2z" fill="#c9b2f5"/><path d="M27.5 9.5c.4 2.6 1.4 3.6 4 4-2.6.4-3.6 1.4-4 4-.4-2.6-1.4-3.6-4-4 2.6-.4 3.6-1.4 4-4z" fill="#f06aa8"/></svg>');
         $colores = [
             'pagada' => ['#e3f5ec', '#1f8a5e'],
             'pendiente' => ['#fdf1dc', '#9a5d06'],
@@ -17,13 +16,13 @@
         @page { margin: 0; }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'DejaVu Sans', sans-serif; font-size: 9.5pt; color: #1b1124; line-height: 1.45; }
-        .banda { background: #140d1c; color: #ffffff; padding: 34px 48px 30px; }
+        .banda { background: #7b4397; color: #ffffff; padding: 34px 48px 30px; }
         .banda td { vertical-align: middle; }
         .marca { font-size: 17pt; font-weight: bold; letter-spacing: -0.3px; }
-        .marca span { color: #f06aa8; }
-        .tenue { color: #a99bb9; font-size: 8pt; }
+        .marca span { color: #ffb3da; }
+        .tenue { color: #eedcff; font-size: 8pt; }
         .etiqueta { font-size: 7pt; letter-spacing: 2px; text-transform: uppercase; color: #8a7f98; font-weight: bold; }
-        .banda .etiqueta { color: #a99bb9; }
+        .banda .etiqueta { color: #eedcff; }
         .folio { font-size: 19pt; font-weight: bold; margin-top: 2px; }
         .pastilla { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 7.5pt; font-weight: bold; background: {{ $colores[0] }}; color: {{ $colores[1] }}; margin-top: 6px; }
         .cuerpo { padding: 30px 48px 0; }
@@ -33,17 +32,17 @@
         .fuerte { font-weight: bold; font-size: 10pt; }
         .gris { color: #5b4d6b; }
         .conceptos { margin-top: 26px; }
-        .conceptos th { background: #efe7fa; color: #4c2a78; font-size: 7pt; letter-spacing: 1.5px; text-transform: uppercase; text-align: left; padding: 9px 12px; }
+        .conceptos th { background: #f3ecfb; color: #7b4397; font-size: 7pt; letter-spacing: 1.5px; text-transform: uppercase; text-align: left; padding: 9px 12px; }
         .conceptos td { padding: 11px 12px; border-bottom: 1px solid #ece6f3; }
         .der { text-align: right; }
         .totales { margin-top: 18px; }
         .totales td { padding: 5px 12px; }
-        .caja-total { background: #140d1c; color: #ffffff; border-radius: 12px; }
+        .caja-total { background: #2a1838; color: #ffffff; border-radius: 12px; }
         .caja-total td { padding: 12px 14px; }
-        .monto-total { font-size: 16pt; font-weight: bold; color: #f06aa8; }
+        .monto-total { font-size: 16pt; font-weight: bold; color: #ff6fb7; }
         .notas { margin-top: 26px; padding: 14px 16px; background: #faf7fd; border-radius: 10px; border: 1px solid #ece6f3; }
         .pie { position: fixed; bottom: 0; left: 0; right: 0; padding: 18px 48px 24px; border-top: 1px solid #ece6f3; font-size: 7.5pt; color: #8a7f98; }
-        .franja { position: fixed; bottom: 0; left: 0; right: 0; height: 6px; background: #e64c95; }
+        .franja { position: fixed; bottom: 0; left: 0; right: 0; height: 8px; background: #ff4fa3; }
     </style>
 </head>
 <body>
@@ -52,9 +51,9 @@
             <tr>
                 <td style="width: 55%">
                     <table style="width: auto"><tr>
-                        <td style="width: 44px"><img src="{{ $logo }}" width="38" height="38" alt=""></td>
+                        <td style="width: 54px"><img src="{{ public_path('images/ima6.jpg') }}" width="48" height="48" alt="" style="border-radius: 24px; border: 2px solid #ffffff;"></td>
                         <td style="padding-left: 10px">
-                            <div class="marca">kuro<span>cute</span></div>
+                            <div class="marca">Kuro<span>Cute</span></div>
                             <div class="tenue">KUROCUTE TIENDA DEMO &middot; RFC KCU250101AB1</div>
                         </td>
                     </tr></table>

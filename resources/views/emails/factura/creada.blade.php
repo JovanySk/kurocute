@@ -17,9 +17,9 @@
     <meta name="color-scheme" content="light">
     <title>Tu factura {{ $factura->numero }}</title>
 </head>
-<body style="margin:0; padding:0; background:#f1ebf7; font-family:'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif; color:#1b1124; -webkit-text-size-adjust:100%;">
+<body style="margin:0; padding:0; background:#f3ecfb; font-family:'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif; color:#1b1124; -webkit-text-size-adjust:100%;">
     <div style="display:none; max-height:0; overflow:hidden;">Tu factura {{ $factura->numero }} por {{ $m($factura->total) }} ya está lista. Adjuntamos el PDF.</div>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1ebf7;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3ecfb;">
         <tr>
             <td align="center" style="padding:32px 12px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
@@ -27,8 +27,8 @@
                     <tr>
                         <td style="padding:0 8px 18px;">
                             <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-                                <td style="width:36px; height:36px; background:#2a1740; border-radius:11px; text-align:center; font-size:18px; line-height:36px; color:#c9b2f5; font-weight:bold;">K</td>
-                                <td style="padding-left:10px; font-size:18px; font-weight:700; letter-spacing:-0.3px;">kuro<span style="color:#e64c95;">cute</span></td>
+                                <td style="width:44px;"><img src="{{ isset($message) ? $message->embed(public_path('images/ima6.jpg')) : asset('images/ima6.jpg') }}" width="44" height="44" alt="KuroCute" style="display:block; width:44px; height:44px; border-radius:50%; border:3px solid #2a1838; object-fit:cover;"></td>
+                                <td style="padding-left:10px; font-size:22px; font-weight:800; letter-spacing:-0.3px; color:#2a1838;">Kuro<span style="color:#ff4fa3;">Cute</span></td>
                             </tr></table>
                         </td>
                     </tr>
@@ -38,10 +38,10 @@
                             {{-- Encabezado oscuro --}}
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td style="background:#140d1c; background-image:radial-gradient(circle at 90% 0%, rgba(139,92,246,0.45), rgba(20,13,28,0) 60%); padding:36px 36px 32px; border-radius:24px 24px 0 0; color:#ffffff;">
-                                        <p style="margin:0; font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#c9b2f5; font-weight:700;">Factura {{ $factura->numero }}</p>
+                                    <td style="background:#7b4397; background-image:radial-gradient(circle at 90% 0%, rgba(255,79,163,0.55), rgba(123,67,151,0) 60%); padding:36px 36px 32px; border-radius:24px 24px 0 0; color:#ffffff;">
+                                        <p style="margin:0; font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#ffe3f1; font-weight:700;">Factura {{ $factura->numero }}</p>
                                         <h1 style="margin:12px 0 0; font-size:26px; line-height:1.2; font-weight:700;">Hola {{ $nombre }}, tu factura ya está lista.</h1>
-                                        <p style="margin:12px 0 0; font-size:15px; line-height:1.6; color:#d8cfe4;">Gracias por comprar en KuroCute. Adjuntamos tu factura en PDF{{ $factura->archivo_xml ? ' y el XML timbrado' : '' }}.</p>
+                                        <p style="margin:12px 0 0; font-size:15px; line-height:1.6; color:#f3e6ff;">Gracias por comprar en KuroCute. Adjuntamos tu factura en PDF{{ $factura->archivo_xml ? ' y el XML timbrado' : '' }}.</p>
                                     </td>
                                 </tr>
                             </table>
@@ -54,7 +54,7 @@
                                             <tr>
                                                 <td style="padding:20px 22px;">
                                                     <p style="margin:0; font-size:12px; color:#8a7f98;">{{ $pagada ? 'Total pagado' : 'Total a pagar' }}</p>
-                                                    <p style="margin:4px 0 0; font-size:30px; font-weight:700; color:#6b3fa0;">{{ $m($factura->total) }} <span style="font-size:13px; font-weight:500; color:#8a7f98;">MXN</span></p>
+                                                    <p style="margin:4px 0 0; font-size:30px; font-weight:700; color:#7b4397;">{{ $m($factura->total) }} <span style="font-size:13px; font-weight:500; color:#8a7f98;">MXN</span></p>
                                                 </td>
                                                 <td align="right" style="padding:20px 22px;">
                                                     <p style="margin:0; font-size:12px; color:#8a7f98;">Vence</p>
@@ -103,7 +103,7 @@
 
                                 <tr>
                                     <td style="padding:28px 36px 36px;">
-                                        <a href="{{ route('tienda.catalogo') }}" style="display:inline-block; background:#e64c95; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:13px 24px; border-radius:999px;">Seguir comprando</a>
+                                        <a href="{{ route('tienda.catalogo') }}" style="display:inline-block; background:#ff4fa3; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:13px 24px; border-radius:999px;">Seguir comprando</a>
                                         <p style="margin:20px 0 0; font-size:13px; line-height:1.6; color:#5b4d6b;">Si algo no cuadra, responde a este correo y lo resolvemos.</p>
                                     </td>
                                 </tr>

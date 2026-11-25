@@ -25,9 +25,9 @@
         {{-- Documento --}}
         <article class="shell">
             <div class="core overflow-hidden">
-                <div class="flex flex-col justify-between gap-6 bg-night p-8 text-white sm:flex-row">
+                <div class="flex flex-col justify-between gap-6 bg-brand p-8 text-white sm:flex-row">
                     <div>
-                        <span class="inline-flex items-center gap-2.5"><x-logo :texto="false" tamano="size-9" /><span class="font-display text-lg font-semibold">kuro<span class="text-[#f06aa8]">cute</span></span></span>
+                        <span class="inline-flex items-center gap-2.5"><x-logo :texto="false" tamano="size-9" /><span class="font-display text-2xl font-bold">Kuro<span class="text-[#ffb3da]">Cute</span></span></span>
                         <p class="mt-3 text-sm text-white/60">KUROCUTE TIENDA DEMO<br>RFC KCU250101AB1</p>
                     </div>
                     <div class="sm:text-right">

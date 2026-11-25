@@ -57,9 +57,9 @@
                     <template x-if="url"><img :src="url" alt="Vista previa" class="size-full object-cover"></template>
                     <template x-if="!url">
                         @if ($editando)
-                            <div class="relative size-full"><x-producto-arte :producto="$producto" /><span class="absolute inset-x-3 bottom-3 rounded-full bg-ink/80 py-2 text-center text-xs font-semibold text-bg">Ilustración automática. Clic para subir foto.</span></div>
+                            <div class="relative size-full"><x-producto-arte :producto="$producto" /><span class="absolute inset-x-3 bottom-3 rounded-full bg-ink/80 py-2 text-center text-xs font-semibold text-bg">Foto actual. Clic para cambiarla.</span></div>
                         @else
-                            <span class="flex flex-col items-center gap-2 px-6 text-center text-sm text-ink-3"><span class="inline-flex size-12 items-center justify-center rounded-full bg-brand-soft text-brand"><x-icono nombre="subir" clase="size-5" /></span>Sube una foto o usa la ilustración automática</span>
+                            <span class="flex flex-col items-center gap-2 px-6 text-center text-sm text-ink-3"><span class="inline-flex size-12 items-center justify-center rounded-full bg-brand-soft text-brand"><x-icono nombre="subir" clase="size-5" /></span>Sube una foto del producto</span>
                         @endif
                     </template>
                 </label>

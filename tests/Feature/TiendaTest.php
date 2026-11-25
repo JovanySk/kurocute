@@ -17,7 +17,7 @@ class TiendaTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSee('Lo tierno también tiene su')
+            ->assertSee('esto es')
             ->assertSee($destacado->nombre);
     }
 

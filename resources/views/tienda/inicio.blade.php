@@ -1,128 +1,126 @@
-<x-layouts.tienda titulo="Peluches y coleccionables con lado oscuro">
-    {{-- Hero: titular editorial + cascada de productos --}}
-    <section class="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-14 sm:px-6 md:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28">
-        <div>
-            <p class="eyebrow reveal"><x-icono nombre="brillo" clase="size-3.5 text-accent" /> Colección Noche de Estrellas</p>
-            <h1 class="reveal mt-7 font-display text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[4.4rem]" style="--delay: 80ms">
-                Lo tierno también tiene su <span class="relative whitespace-nowrap text-accent">lado oscuro<svg class="absolute -bottom-2 left-0 w-full text-accent/40" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 150-8 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>.
+<x-layouts.tienda titulo="Tu tiendita de Kuromi">
+    {{-- Hero con el collage de ilustraciones de Kuromi --}}
+    <section class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-10 sm:px-6 md:pt-14 lg:grid-cols-[1fr_1.05fr]">
+        <div class="relative z-10">
+            <p class="eyebrow reveal"><x-deco tipo="calavera" clase="size-5 text-white" /> Tiendita de fans de Kuromi</p>
+            <h1 class="reveal mt-5 font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl" style="--delay: 80ms">
+                ¡Hola, esto es <span class="relative inline-block text-brand">Kuro<span class="text-accent">Cute</span></span>!
             </h1>
-            <p class="reveal mt-7 max-w-lg text-lg leading-relaxed text-ink-2" style="--delay: 160ms">
-                Peluches, papelería y coleccionables con estética nocturna. Arma tu pedido en minutos y recibe tu factura por correo.
+            <p class="reveal mt-5 max-w-md text-lg font-semibold leading-relaxed text-ink-2" style="--delay: 160ms">
+                Peluches y figuras de Kuromi, maquillaje lindo y hasta motos. Arma tu pedido en minutos y te mandamos tu factura por correo.
             </p>
 
-            <form action="{{ route('tienda.catalogo') }}" method="GET" class="reveal mt-9 max-w-lg" style="--delay: 240ms" role="search">
+            <form action="{{ route('tienda.catalogo') }}" method="GET" class="reveal mt-7 max-w-md" style="--delay: 240ms" role="search">
                 <label for="hero-buscar" class="sr-only">Buscar productos</label>
-                <div class="shell !rounded-full">
-                    <div class="core flex items-center gap-2 !rounded-full py-1.5 pl-5 pr-1.5 transition focus-within:shadow-lift">
-                        <x-icono nombre="buscar" clase="size-5 shrink-0 text-ink-3" />
-                        <input id="hero-buscar" type="search" name="q" placeholder="Busca peluches, libretas, tazas..." class="w-full border-0 bg-transparent px-1 py-2 text-[0.95rem] text-ink placeholder:text-ink-3 focus:outline-none focus:ring-0">
-                        <button type="submit" class="btn btn-primary shrink-0 py-2.5 pl-5 pr-2.5">
-                            Buscar <span class="btn-orb"><x-icono nombre="flecha" clase="size-4" /></span>
-                        </button>
-                    </div>
+                <div class="flex items-center gap-2 rounded-full border-[3px] border-sticker bg-surface py-1.5 pl-5 pr-1.5 shadow-sticker">
+                    <x-icono nombre="buscar" clase="size-5 shrink-0 text-brand" />
+                    <input id="hero-buscar" type="search" name="q" placeholder="Busca peluches, labiales, motos..." class="w-full border-0 bg-transparent px-1 py-2 font-semibold text-ink placeholder:text-ink-3 focus:outline-none focus:ring-0">
+                    <button type="submit" class="btn btn-primary shrink-0 !shadow-none py-2.5">Buscar</button>
                 </div>
             </form>
 
-            <dl class="reveal mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-line pt-7" style="--delay: 320ms">
-                <div><dt class="text-xs text-ink-3">Productos</dt><dd class="num mt-1 font-display text-2xl font-semibold">{{ $totalProductos }}</dd></div>
-                <div><dt class="text-xs text-ink-3">Envío nacional</dt><dd class="mt-1 font-display text-2xl font-semibold">48 h</dd></div>
-                <div><dt class="text-xs text-ink-3">Factura</dt><dd class="mt-1 font-display text-2xl font-semibold">PDF</dd></div>
-            </dl>
+            <div class="reveal mt-7 flex flex-wrap gap-3" style="--delay: 320ms">
+                <a href="{{ route('tienda.catalogo', ['categoria' => 'kuromi']) }}" class="btn btn-dark">Ver peluches de Kuromi</a>
+                <a href="#como-funciona" class="btn btn-ghost">¿Cómo pido?</a>
+            </div>
         </div>
 
-        {{-- Cascada de tarjetas (sin rotaciones en movil) --}}
-        <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div class="absolute inset-8 -z-10 rounded-full bg-brand/25 blur-3xl"></div>
-            @php $hero = $destacados->unique(fn ($p) => $p->variante())->take(3)->values(); @endphp
-            <div class="relative grid grid-cols-2 gap-4 md:block md:h-[40rem]">
-                @foreach ($hero as $i => $p)
-                    @php
-                        $pos = [
-                            'md:absolute md:left-0 md:top-[16%] md:w-[50%] md:[--rot:-5deg]',
-                            'md:absolute md:right-0 md:top-0 md:w-[44%] md:[--rot:4deg]',
-                            'md:absolute md:bottom-0 md:right-[4%] md:w-[44%] md:[--rot:-2deg]',
-                        ][$i];
-                    @endphp
-                    <a href="{{ route('tienda.producto', $p->slug) }}" class="reveal {{ $pos }} {{ $i === 2 ? 'col-span-2 mx-auto w-2/3 md:mx-0' : '' }} block" style="--delay: {{ 200 + $i * 120 }}ms">
-                        <div class="float-slow shell md:rotate-[var(--rot)]" style="animation-delay: {{ $i * 900 }}ms">
-                            <div class="core overflow-hidden">
-                                <div class="aspect-square"><x-producto-arte :producto="$p" /></div>
-                                <div class="flex items-center justify-between gap-2 px-4 py-3">
-                                    <span class="truncate text-sm font-semibold">{{ $p->nombre }}</span>
-                                    <span class="num shrink-0 text-sm font-semibold text-brand">${{ number_format($p->precio, 0) }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
+        {{-- Collage tipo stickers --}}
+        <div class="relative order-first mx-auto h-[22rem] w-full max-w-lg sm:h-[32rem] lg:order-none" aria-label="Ilustraciones de Kuromi">
+            <x-deco tipo="corazon" clase="twinkle absolute left-2 top-6 z-20 size-9 text-accent" />
+            <x-deco tipo="estrella" clase="twinkle absolute bottom-4 left-1/2 z-20 size-8 text-[#ffd84d] [animation-delay:600ms]" />
+            <x-deco tipo="brillo" clase="twinkle absolute right-4 top-1/2 z-20 size-7 text-brand [animation-delay:1200ms]" />
+
+            <img src="{{ asset('images/ima4.jpg') }}" alt="Kuromi dentro de una burbuja"
+                class="float-slow sticker absolute left-[6%] top-[6%] w-[58%] !rounded-[2rem] [--rot:-5deg]">
+            <img src="{{ asset('images/ima3.jpg') }}" alt="Kuromi sentada en la luna"
+                class="float-slow sticker absolute right-0 top-0 w-[42%] !rounded-[1.6rem] [--rot:6deg] [animation-delay:800ms]">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Kuromi con arcoíris"
+                class="float-slow sticker absolute bottom-[4%] right-[6%] w-[40%] !rounded-[1.6rem] [--rot:-3deg] [animation-delay:1600ms]">
+            <img src="{{ asset('images/ima2.jpg') }}" alt="Kuromi con los ojos cerrados"
+                class="float-slow sticker absolute bottom-[2%] left-0 w-[34%] !rounded-[1.4rem] [--rot:4deg] [animation-delay:400ms]">
+            <img src="{{ asset('images/ima6.jpg') }}" alt="Kuromi guiñando el ojo"
+                class="medalla absolute left-[40%] top-[48%] z-10 size-24 rotate-[-8deg] object-[50%_20%] shadow-sticker sm:size-28">
         </div>
     </section>
 
-    {{-- Categorías en bento --}}
-    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24" aria-labelledby="titulo-categorias">
-        <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-                <p class="eyebrow">Explora</p>
-                <h2 id="titulo-categorias" class="mt-5 font-display text-3xl font-semibold tracking-tight sm:text-4xl">Encuentra tu rincón favorito</h2>
-            </div>
-            <a href="{{ route('tienda.catalogo') }}" class="link text-sm">Ver todo el catálogo</a>
+    {{-- Cinta de Kuromis --}}
+    <section class="overflow-hidden border-y-[3px] border-sticker bg-brand py-4" aria-label="Galería de Kuromi">
+        @php $galeria = ['images/descarga1.jpg', 'images/descarga2.jpg', 'images/descarga3.jpg', 'images/ima5.jpg', 'images/descarga4.jpg', 'images/descarga5.jpg', 'images/ima1.jpg', 'images/ima2.jpg']; @endphp
+        <div class="marquee flex w-max gap-4">
+            @foreach (array_merge($galeria, $galeria) as $i => $img)
+                <img src="{{ asset($img) }}" alt="" class="h-28 w-auto shrink-0 rounded-2xl border-[3px] border-white object-cover sm:h-32" style="transform: rotate({{ [-2, 2, -1, 3, -3, 1][$i % 6] }}deg)">
+            @endforeach
         </div>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    </section>
+
+    {{-- Categorías --}}
+    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20" aria-labelledby="titulo-categorias">
+        <div class="reveal flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div>
+                <p class="eyebrow"><x-deco tipo="estrella" clase="size-4 text-[#ffd84d]" /> Explora</p>
+                <h2 id="titulo-categorias" class="mt-3 font-display text-4xl font-bold tracking-tight">¿Qué se te antoja hoy?</h2>
+            </div>
+            <a href="{{ route('tienda.catalogo') }}" class="link">Ver todo el catálogo</a>
+        </div>
+        <div class="mt-9 grid gap-6 md:grid-cols-3">
             @foreach ($categorias as $i => $c)
-                <a href="{{ route('tienda.catalogo', ['categoria' => $c->slug]) }}"
-                    class="reveal group relative overflow-hidden rounded-[1.75rem] p-6 ring-1 ring-line transition duration-700 ease-[var(--ease-spring)] hover:-translate-y-1 hover:shadow-lift {{ $i === 0 ? 'bg-night text-white lg:col-span-2 lg:row-span-2' : 'bg-surface' }}"
-                    style="--delay: {{ $i * 70 }}ms">
-                    <div class="relative z-10 flex h-full flex-col {{ $i === 0 ? 'min-h-56 lg:min-h-full' : 'min-h-40' }}">
-                        <p class="text-xs font-semibold uppercase tracking-[0.16em] {{ $i === 0 ? 'text-white/60' : 'text-ink-3' }}">{{ $c->productos_count }} productos</p>
-                        <h3 class="mt-2 font-display font-semibold {{ $i === 0 ? 'text-3xl sm:text-4xl' : 'text-xl' }}">{{ $c->nombre }}</h3>
-                        <p class="mt-2 max-w-[15rem] text-sm {{ $i === 0 ? 'text-white/70' : 'text-ink-2' }}">{{ $c->descripcion }}</p>
-                        <span class="mt-auto inline-flex size-10 items-center justify-center rounded-full pt-0 transition duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1 group-hover:-translate-y-0.5 {{ $i === 0 ? 'bg-white/10' : 'bg-surface-2 ring-1 ring-line' }}">
-                            <x-icono nombre="flecha" clase="size-4" />
-                        </span>
+                <a href="{{ route('tienda.catalogo', ['categoria' => $c->slug]) }}" class="reveal sticker wiggle group relative block overflow-hidden" style="--delay: {{ $i * 90 }}ms">
+                    <div class="aspect-[4/3] overflow-hidden border-b-[3px] border-sticker">
+                        <img src="{{ $c->portadaUrl() }}" alt="{{ $c->nombre }}" class="size-full object-cover transition duration-700 ease-[var(--ease-spring)] group-hover:scale-110">
                     </div>
-                    <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" class="pointer-events-none absolute -bottom-10 -right-10 rounded-[2rem] transition duration-[1.2s] ease-[var(--ease-out-soft)] group-hover:scale-105 group-hover:-rotate-3 {{ $i === 0 ? 'size-72 opacity-90 sm:size-80' : 'size-36 opacity-90' }}" aria-hidden="true">
-                        <use href="#kc-arte-{{ $i % 6 }}"/>
-                    </svg>
+                    <div class="flex items-center justify-between gap-3 p-5">
+                        <div>
+                            <h3 class="font-display text-2xl font-bold leading-tight">{{ $c->nombre }}</h3>
+                            <p class="text-sm font-bold text-ink-3">{{ $c->productos_count }} productos</p>
+                        </div>
+                        <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-full border-[2.5px] border-sticker bg-accent text-on-accent transition group-hover:rotate-45"><x-icono nombre="flecha" clase="size-5" /></span>
+                    </div>
                 </a>
             @endforeach
         </div>
     </section>
 
     {{-- Favoritos --}}
-    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24" aria-labelledby="titulo-favoritos">
-        <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-                <p class="eyebrow">Los más pedidos</p>
-                <h2 id="titulo-favoritos" class="mt-5 font-display text-3xl font-semibold tracking-tight sm:text-4xl">Favoritos de la comunidad</h2>
+    <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6" aria-labelledby="titulo-favoritos">
+        <div class="reveal flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div class="flex items-center gap-4">
+                <img src="{{ asset('images/descarga4.jpg') }}" alt="" class="medalla size-16 sm:size-20">
+                <div>
+                    <p class="eyebrow"><x-deco tipo="corazon" clase="size-4 text-accent" /> Los más pedidos</p>
+                    <h2 id="titulo-favoritos" class="mt-2 font-display text-4xl font-bold tracking-tight">Favoritos de Kuromi</h2>
+                </div>
             </div>
             <a href="{{ route('tienda.catalogo') }}" class="btn btn-ghost">Ver catálogo <x-icono nombre="derecha" clase="size-4" /></a>
         </div>
-        <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-9 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($destacados as $i => $producto)
-                <x-tarjeta-producto :producto="$producto" :retraso="($i % 4) * 80" />
+                <x-tarjeta-producto :producto="$producto" :retraso="($i % 4) * 70" :giro="[-1.5, 1.5, -1, 1][$i % 4]" />
             @endforeach
         </div>
     </section>
 
-    {{-- Como funciona --}}
-    <section id="como-funciona" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-16 sm:px-6 md:py-24">
-        <div class="shell reveal">
-            <div class="core grid gap-10 p-8 sm:p-12 lg:grid-cols-[0.9fr_1.1fr]">
-                <div>
+    {{-- Cómo pedir --}}
+    <section id="como-funciona" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-16 sm:px-6 md:py-20">
+        <div class="reveal sticker relative overflow-hidden !bg-brand-soft p-7 sm:p-10">
+            <div class="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+                <div class="relative">
                     <p class="eyebrow">Cómo pedir</p>
-                    <h2 class="mt-5 font-display text-3xl font-semibold tracking-tight sm:text-4xl">Tres pasos y listo.</h2>
-                    <p class="mt-4 max-w-sm text-ink-2">Sin crear cuenta. Confirmas tus datos, preparamos tu pedido y te enviamos la factura en PDF a tu correo.</p>
+                    <h2 class="mt-3 font-display text-4xl font-bold tracking-tight">¡Tres pasitos y listo!</h2>
+                    <p class="mt-3 max-w-sm font-semibold text-ink-2">Sin crear cuenta. Confirmas tus datos, preparamos tu pedido y te mandamos la factura en PDF a tu correo.</p>
+                    <img src="{{ asset('images/ima1.jpg') }}" alt="Kuromi y My Melody" class="sticker mt-6 hidden h-64 w-auto rotate-[-3deg] object-cover lg:block">
                 </div>
-                <ol class="grid gap-4 sm:grid-cols-3">
-                    @foreach ([['bolsa', 'Arma tu pedido', 'Agrega productos desde el catálogo o desde cada ficha.'], ['check', 'Confirma tus datos', 'Nombre, correo y dirección de envío. Nada más.'], ['correo', 'Recibe tu factura', 'Te llega el PDF por correo cuando facturamos tu pedido.']] as $n => [$icono, $titulo, $texto])
-                        <li class="reveal rounded-3xl bg-surface-2 p-5 ring-1 ring-line" style="--delay: {{ $n * 100 }}ms">
-                            <div class="flex items-center justify-between">
-                                <span class="inline-flex size-11 items-center justify-center rounded-full bg-brand-soft text-brand"><x-icono :nombre="$icono" clase="size-5" /></span>
-                                <span class="num font-display text-sm font-semibold text-ink-3">0{{ $n + 1 }}</span>
+                <ol class="grid gap-5 sm:grid-cols-3">
+                    @foreach ([['images/descarga1.jpg', 'Arma tu pedido', 'Agrega productos desde el catálogo o desde cada ficha.'], ['images/descarga2.jpg', 'Confirma tus datos', 'Nombre, correo y dirección de envío. Nada más.'], ['images/descarga5.jpg', 'Recibe tu factura', 'Te llega el PDF por correo cuando facturamos tu pedido.']] as $n => [$img, $titulo, $texto])
+                        <li class="reveal sticker wiggle overflow-hidden" style="--delay: {{ $n * 100 }}ms">
+                            <div class="relative aspect-[4/3] overflow-hidden border-b-[3px] border-sticker">
+                                <img src="{{ asset($img) }}" alt="" class="size-full object-cover">
+                                <span class="absolute left-3 top-3 inline-flex size-9 items-center justify-center rounded-full border-[2.5px] border-sticker bg-accent font-display text-lg font-bold text-on-accent">{{ $n + 1 }}</span>
                             </div>
-                            <p class="mt-6 font-semibold">{{ $titulo }}</p>
-                            <p class="mt-1.5 text-sm leading-relaxed text-ink-2">{{ $texto }}</p>
+                            <div class="p-4">
+                                <p class="font-display text-lg font-semibold">{{ $titulo }}</p>
+                                <p class="mt-1 text-sm font-semibold text-ink-2">{{ $texto }}</p>
+                            </div>
                         </li>
                     @endforeach
                 </ol>
@@ -130,17 +128,16 @@
         </div>
     </section>
 
-    {{-- Llamado final --}}
+    {{-- Banner de motos con el logo original VYHZ --}}
     <section class="mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="reveal relative overflow-hidden rounded-[2rem] bg-night px-8 py-14 text-white sm:px-14 sm:py-20">
-            <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(34rem 20rem at 90% 0%, rgb(139 92 246 / .4), transparent 70%), radial-gradient(24rem 18rem at 0% 100%, rgb(240 106 168 / .25), transparent 70%);"></div>
-            <div class="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-                <div class="max-w-xl">
-                    <h2 class="font-display text-3xl font-semibold leading-tight sm:text-4xl">Tu próximo favorito ya te está esperando.</h2>
-                    <p class="mt-3 text-white/70">Nuevos peluches y coleccionables cada mes. Piezas limitadas.</p>
-                </div>
-                <a href="{{ route('tienda.catalogo') }}" class="btn btn-primary py-3.5 pl-6 pr-3">Ir al catálogo <span class="btn-orb"><x-icono nombre="flecha" clase="size-4" /></span></a>
+        <a href="{{ route('tienda.catalogo', ['categoria' => 'motos']) }}" class="reveal sticker group grid overflow-hidden !bg-night text-white md:grid-cols-[1fr_1.2fr]">
+            <div class="flex flex-col justify-center gap-4 p-8 sm:p-10">
+                <img src="{{ asset('images/logoinicial.jpeg') }}" alt="VYHZ" class="w-48 rounded-xl">
+                <h2 class="font-display text-3xl font-bold leading-tight sm:text-4xl">También tenemos motos <span class="text-[#ff6fb7]">con actitud</span>.</h2>
+                <p class="font-semibold text-white/70">Deportivas y urbanas, con factura y asesoría de pago.</p>
+                <span class="btn btn-primary w-fit">Ver motos <x-icono nombre="flecha" clase="size-4" /></span>
             </div>
-        </div>
+            <div class="min-h-56 overflow-hidden"><img src="{{ asset('images/img2.jpg') }}" alt="Moto deportiva verde" class="size-full object-cover transition duration-700 group-hover:scale-105"></div>
+        </a>
     </section>
 </x-layouts.tienda>

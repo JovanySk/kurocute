@@ -1,6 +1,8 @@
 # KuroCute: tienda y facturación en Laravel 13
 
-Tienda en línea con estética nocturna (morado de marca + rosa chicle) y un back office para pedidos, clientes, facturas, catálogo y perfiles. Todos los datos de ejemplo son ficticios y las ilustraciones son originales (SVG propios, sin imágenes de marcas de terceros).
+Tiendita de fans de Kuromi (peluches, figuras, maquillaje y motos) con un back office para pedidos, clientes, facturas, catálogo y perfiles. Los clientes y pedidos de ejemplo son ficticios; las ilustraciones y fotos son las imágenes originales del proyecto (`public/images`, `public/productos`).
+
+> **Aviso:** proyecto escolar de fans, sin fines comerciales. Kuromi, My Melody y sus imágenes pertenecen a sus respectivos dueños (Sanrio). Las fotos de productos de terceros se usan solo como ejemplo.
 
 ![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-76%20passing-1f8a5e)
 
@@ -23,25 +25,26 @@ Tienda en línea con estética nocturna (morado de marca + rosa chicle) y un bac
 | MySQL | 8.4 (Docker) |
 | Correo local | Mailpit |
 
-Tipografias: Unbounded (titulares) y Plus Jakarta Sans (texto), empaquetadas en el build con el soporte de fuentes de `laravel-vite-plugin`.
+Tipografías: Fredoka (titulares redondeados) y Nunito (texto), empaquetadas en el build con el soporte de fuentes de `laravel-vite-plugin`. Paleta original del proyecto: morado `#7b4397` / `#6a0dad`, lavanda `#f3ecfb`, rosa y negro; el modo oscuro es una "noche Kuromi".
 
 ## Funciones
 
 **Tienda pública**
-- Portada con hero editorial, buscador, categorías en bento y productos favoritos.
-- Catálogo con búsqueda instantanea (Alpine + AJAX a `/catalogo/buscar`, con debounce), filtros por categoría, orden por precio o nombre y la URL sincronizada.
-- Vista rápida del producto en modal y ficha de producto con relacionados.
-- Pedido tipo carrito (sesión): cajon lateral, cantidades limitadas por stock, confirmacion sin cuenta. Al confirmar se crea el pedido, se registra o reutiliza al cliente por correo y se descuenta el stock.
+- Portada con collage de stickers de Kuromi, cinta animada con la galería de ilustraciones, buscador, categorías con portada y productos favoritos.
+- Catálogo con búsqueda instantánea (Alpine + AJAX a `/catalogo/buscar`, con debounce), filtros por categoría, orden por precio o nombre y la URL sincronizada.
+- Vista rápida del producto en modal y ficha de producto con relacionados; fotos reales de cada producto.
+- Pedido tipo carrito (sesión): cajón lateral, cantidades limitadas por stock, confirmación sin cuenta. Al confirmar se crea el pedido, se registra o reutiliza al cliente por correo y se descuenta el stock.
+- Kuromi también en los estados vacíos, el login/registro, la página 404 y el back office.
 
 **Back office** (`/dashboard`, `/admin/...`)
-- Dashboard con KPIs (cobrado del mes y variacion, ventas cobradas, por cobrar, ticket promedio), gráfica de ingresos por mes (cobrado vs por cobrar), dona de facturas por estado, mejores clientes y facturas recientes. Cada gráfica tiene tabla de datos.
-- Facturas: listado con búsqueda, pestanas por estado, filtro por forma de pago y rango de fechas; formulario con calculo de IVA en vivo y carga de PDF/XML con vista previa; detalle; **Descargar PDF** (dompdf); vista previa y reenvio del correo.
-- Correo `FacturaCreadaMail` en HTML con el PDF generado adjunto (y el XML si existe). Se envia al crear la factura.
+- Dashboard con KPIs (cobrado del mes y variación, ventas cobradas, por cobrar, ticket promedio), gráfica de ingresos por mes (cobrado vs por cobrar), dona de facturas por estado, mejores clientes y facturas recientes. Cada gráfica tiene tabla de datos.
+- Facturas: listado con búsqueda, pestañas por estado, filtro por forma de pago y rango de fechas; formulario con cálculo de IVA en vivo y carga de PDF/XML con vista previa; detalle; **Descargar PDF** (dompdf); vista previa y reenvío del correo.
+- Correo `FacturaCreadaMail` en HTML con el PDF generado adjunto (y el XML si existe). Se envía al crear la factura.
 - Pedidos: listado por estado, cambio de estado y **Generar factura** desde el pedido (IVA desglosado de precios con IVA incluido).
 - Clientes con foto o logotipo (vista previa al subir), RFC validado, historial de facturas.
 - Productos y categorías (las antiguas "secciones").
 - Perfiles: `Administrador` puede crear, editar y eliminar; `Consulta` (asignado al registrarse) solo lee. Se controla con el gate `administrar`.
-- Modo claro y oscuro (respeta la preferencia del sistema y se recuerda), animaciones que respetan `prefers-reduced-motion`, interfaz en espanol y adaptada a movil.
+- Modo claro y oscuro (respeta la preferencia del sistema y se recuerda), animaciones que respetan `prefers-reduced-motion`, interfaz en español y adaptada a móvil.
 
 ## Correr con Docker
 
@@ -85,20 +88,20 @@ php artisan serve
 
 ## Datos de ejemplo
 
-`DatabaseSeeder` carga los catalogos base (`CatalogosSeeder`) y `DemoSeeder`:
-6 categorías, 28 productos, 18 clientes ficticios con correos `@example.com`, unos 45 pedidos repartidos en el último año y 60 facturas en todos los estados. Los archivos se generan al sembrar: avatares PNG con iniciales (GD), un PDF por factura (dompdf) y un XML tipo CFDI 4.0 marcado como documento de demostración sin validez fiscal.
+`DatabaseSeeder` carga los catálogos base (`CatalogosSeeder`) y `DemoSeeder`:
+3 categorías (Peluches Kuromi, Maquillaje, Motos), 18 productos con las fotos originales del proyecto (se copian al disco `public` al sembrar), 18 clientes ficticios con correos `@example.com`, unos 45 pedidos repartidos en el último año y facturas en todos los estados, con cobros en el mes en curso. Al sembrar se genera un PDF por factura (dompdf) y un XML tipo CFDI 4.0 marcado como documento de demostración sin validez fiscal.
 
 ## Pruebas
 
 76 pruebas (240 aserciones) con PHPUnit 13 sobre SQLite en memoria:
 
-- 25 originales de Breeze (registro, login, verificacion de correo, contrasenas, perfil) y ejemplo.
+- 25 originales de Breeze (registro, login, verificación de correo, contraseñas, perfil) y ejemplo.
 - `TiendaTest`: portada, búsqueda por texto y descripción, filtro por categoría y orden, productos ocultos, ficha de producto.
-- `CarritoTest`: agregar, limite de stock, agotados, actualizar y quitar, confirmar pedido, reutilizar cliente, privacidad del resumen.
+- `CarritoTest`: agregar, límite de stock, agotados, actualizar y quitar, confirmar pedido, reutilizar cliente, privacidad del resumen.
 - `AccesoTest`: rutas protegidas (invitados al login), perfil de consulta solo lectura, administrador con acceso completo, perfil asignado al registrarse.
-- `FacturaTest`: alta con PDF/XML y correo enviado, adjuntos del correo, validación de archivos y folio, **descarga con `application/pdf`**, vista previa del correo, filtros, edición y borrado, numeracion consecutiva.
+- `FacturaTest`: alta con PDF/XML y correo enviado, adjuntos del correo, validación de archivos y folio, **descarga con `application/pdf`**, vista previa del correo, filtros, edición y borrado, numeración consecutiva.
 - `BackOfficeTest`: KPIs del dashboard, clientes con imagen y RFC, facturar pedidos, estados de pedido, productos y categorías, perfiles.
-- `ImportesFacturaTest` (unit): calculo y desglose de IVA.
+- `ImportesFacturaTest` (unit): cálculo y desglose de IVA.
 
 ```bash
 docker compose exec app php artisan test
@@ -115,15 +118,17 @@ docker compose exec app php artisan test
 | ![Detalle de factura](docs/screenshots/admin-factura-detalle-claro.png) | ![PDF de factura](docs/screenshots/factura-pdf.png) |
 | ![Correo de factura](docs/screenshots/correo-factura.png) | ![Pedidos](docs/screenshots/admin-pedidos-claro.png) |
 
+| ![Login](docs/screenshots/login-oscuro.png) | ![Página 404](docs/screenshots/pagina-404-claro.png) |
+
 Móvil: ![Móvil claro](docs/screenshots/movil-portada-claro.png) ![Móvil oscuro](docs/screenshots/movil-portada-oscuro.png)
 
 ## Estructura
 
 ```
-app/Http/Controllers/TiendaController.php     tienda publica y busqueda AJAX
-app/Http/Controllers/CarritoController.php    pedido en sesion y confirmacion
-app/Http/Controllers/Admin/*                  dashboard, clientes, facturas, pedidos, productos, categorias, perfiles
-app/Support/Carrito.php, FacturaPdf.php       carrito en sesion y PDF con dompdf
+app/Http/Controllers/TiendaController.php     tienda pública y búsqueda AJAX
+app/Http/Controllers/CarritoController.php    pedido en sesión y confirmación
+app/Http/Controllers/Admin/*                  dashboard, clientes, facturas, pedidos, productos, categorías, perfiles
+app/Support/Carrito.php, FacturaPdf.php       carrito en sesión y PDF con dompdf
 app/Mail/FacturaCreadaMail.php                correo con PDF adjunto
 resources/views/tienda, admin, pdf, emails    vistas Blade
 resources/css/app.css                         tokens de color y componentes (Tailwind 4)

@@ -64,28 +64,10 @@ class Producto extends Model
         return str_starts_with($this->imagen, 'http') ? $this->imagen : Storage::disk('public')->url($this->imagen);
     }
 
-    /** Variante visual (0-5) para la ilustración SVG generada del producto. */
-    public function variante(): int
+    /** Foto del producto o, si no tiene, una ilustracion de Kuromi del dueño de la tienda. */
+    public function fotoUrl(): string
     {
-        // Se elige el motivo según el nombre; si no hay coincidencia, uno estable por slug.
-        $motivos = [
-            5 => ['planeta', 'globo'],
-            1 => ['corazon'],
-            3 => ['lazo', 'diadema', 'orejitas', 'pinzas'],
-            2 => ['estrella', 'constelacion', 'galaxia'],
-            4 => ['nube', 'cojin', 'manta', 'vela'],
-            0 => ['luna'],
-        ];
-
-        foreach ($motivos as $variante => $palabras) {
-            foreach ($palabras as $palabra) {
-                if (str_contains((string) $this->slug, $palabra)) {
-                    return $variante;
-                }
-            }
-        }
-
-        return crc32((string) $this->slug) % 6;
+        return $this->imagenUrl() ?? asset('images/descarga4.jpg');
     }
 
     public function paraCatalogo(): array
@@ -101,8 +83,7 @@ class Producto extends Model
             'destacado' => $this->destacado,
             'categoria' => $this->categoria?->nombre,
             'categoria_slug' => $this->categoria?->slug,
-            'imagen' => $this->imagenUrl(),
-            'variante' => $this->variante(),
+            'imagen' => $this->fotoUrl(),
             'url' => route('tienda.producto', $this->slug),
         ];
     }

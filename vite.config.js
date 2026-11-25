@@ -9,8 +9,8 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js'],
             refresh: true,
             fonts: [
-                bunny('Unbounded', { weights: [500, 600, 700], variable: '--kc-display' }),
-                bunny('Plus Jakarta Sans', { weights: [400, 500, 600, 700], variable: '--kc-body' }),
+                bunny('Fredoka', { weights: [500, 600, 700], variable: '--kc-display' }),
+                bunny('Nunito', { weights: [400, 500, 600, 700, 800], variable: '--kc-body' }),
             ],
         }),
         tailwindcss(),

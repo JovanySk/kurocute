@@ -10,76 +10,80 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /*
- * Paleta KuroCute: "uva" (morado de marca) + "chicle" (rosa de acento) sobre tinta casi negra.
- * Todos los colores salen de estos tokens; los componentes no usan hex sueltos.
+ * Paleta KuroCute (la original del proyecto): morado #7b4397 / #6a0dad, lavanda #f3ecfb,
+ * rosa de acento y negro. Modo claro = lavanda; modo oscuro = "noche Kuromi".
  */
 :root {
-    --bg: #f8f5fb;
-    --bg-2: #f1ebf7;
+    --bg: #f3ecfb;
+    --bg-2: #eadcf8;
     --surface: #ffffff;
-    --surface-2: #faf7fd;
-    --line: rgb(43 22 66 / 0.09);
-    --line-strong: rgb(43 22 66 / 0.16);
-    --ink: #1b1124;
-    --ink-2: #5b4d6b;
-    --ink-3: #8a7f98;
-    --brand: #6b3fa0;
-    --brand-strong: #4c2a78;
-    --brand-soft: #efe7fa;
-    --accent: #e64c95;
-    --accent-strong: #c93479;
-    --accent-soft: #fde8f2;
+    --surface-2: #faf5ff;
+    --line: #e3d3f5;
+    --line-strong: #cdb4ec;
+    --ink: #2a1838;
+    --ink-2: #5d4a70;
+    --ink-3: #8b7a9c;
+    --brand: #7b4397;
+    --brand-strong: #6a0dad;
+    --brand-soft: #efe2fb;
+    --accent: #ff4fa3;
+    --accent-strong: #e0368a;
+    --accent-soft: #ffe3f1;
     --on-accent: #ffffff;
-    --night: #140d1c;
+    --night: #1d1027;
+    --sticker: #2a1838;
     --ok: #1f8a5e;
-    --ok-soft: #e3f5ec;
-    --warn: #b7700a;
-    --warn-soft: #fdf1dc;
-    --danger: #c8384f;
-    --danger-soft: #fde6ea;
-    --muted-soft: #efedf2;
-    --chart-1: #6b3fa0;
-    --chart-2: #e64c95;
-    --shadow-soft: 0 1px 2px rgb(43 22 66 / 0.04), 0 12px 32px -12px rgb(43 22 66 / 0.14);
-    --shadow-lift: 0 2px 4px rgb(43 22 66 / 0.05), 0 28px 60px -20px rgb(76 42 120 / 0.32);
+    --ok-soft: #e1f6ec;
+    --warn: #b06a00;
+    --warn-soft: #fff1d6;
+    --danger: #d23a5c;
+    --danger-soft: #ffe4ea;
+    --muted-soft: #f0eaf6;
+    --chart-1: #7b4397;
+    --chart-2: #ff4fa3;
+    --shadow-soft: 0 10px 30px -14px rgb(106 13 173 / 0.28);
+    --shadow-lift: 0 24px 50px -20px rgb(106 13 173 / 0.45);
+    --shadow-sticker: 5px 5px 0 var(--sticker);
     color-scheme: light;
 }
 
 [data-theme='dark'] {
-    --bg: #0e0a13;
-    --bg-2: #140e1b;
-    --surface: #17111f;
-    --surface-2: #1f1729;
-    --line: rgb(255 255 255 / 0.07);
-    --line-strong: rgb(255 255 255 / 0.13);
-    --ink: #f4eefa;
-    --ink-2: #b9aec6;
-    --ink-3: #857a93;
-    --brand: #9b74e8;
-    --brand-strong: #c9b2f5;
-    --brand-soft: rgb(139 92 246 / 0.14);
-    --accent: #f06aa8;
-    --accent-strong: #ff8cc0;
-    --accent-soft: rgb(240 106 168 / 0.14);
-    --on-accent: #1b0b16;
-    --night: #08050c;
-    --ok: #4cc58e;
-    --ok-soft: rgb(76 197 142 / 0.13);
-    --warn: #f0b04a;
-    --warn-soft: rgb(240 176 74 / 0.13);
-    --danger: #f07087;
-    --danger-soft: rgb(240 112 135 / 0.14);
-    --muted-soft: rgb(255 255 255 / 0.06);
-    --chart-1: #8b5cf6;
-    --chart-2: #e8559a;
-    --shadow-soft: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 16px 40px -18px rgb(0 0 0 / 0.7);
-    --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 70px -24px rgb(0 0 0 / 0.85);
+    --bg: #150a1f;
+    --bg-2: #1e0f2c;
+    --surface: #241233;
+    --surface-2: #2d183f;
+    --line: #3d2554;
+    --line-strong: #563274;
+    --ink: #f8eeff;
+    --ink-2: #d2bde6;
+    --ink-3: #a58bbd;
+    --brand: #c08ce8;
+    --brand-strong: #e0b8ff;
+    --brand-soft: rgb(192 140 232 / 0.16);
+    --accent: #ff6fb7;
+    --accent-strong: #ff9bcd;
+    --accent-soft: rgb(255 111 183 / 0.16);
+    --on-accent: #22061a;
+    --night: #0c0512;
+    --sticker: #ff6fb7;
+    --ok: #55d49b;
+    --ok-soft: rgb(85 212 155 / 0.14);
+    --warn: #ffc261;
+    --warn-soft: rgb(255 194 97 / 0.14);
+    --danger: #ff7d98;
+    --danger-soft: rgb(255 125 152 / 0.15);
+    --muted-soft: rgb(255 255 255 / 0.07);
+    --chart-1: #a970e0;
+    --chart-2: #ff5fae;
+    --shadow-soft: 0 12px 34px -16px rgb(0 0 0 / 0.8);
+    --shadow-lift: 0 26px 60px -22px rgb(0 0 0 / 0.9);
+    --shadow-sticker: 5px 5px 0 #0c0512;
     color-scheme: dark;
 }
 
 @theme inline {
-    --font-sans: var(--kc-body), ui-sans-serif, system-ui, sans-serif;
-    --font-display: var(--kc-display), var(--kc-body), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--kc-body), ui-rounded, ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--kc-display), var(--kc-body), ui-rounded, ui-sans-serif, system-ui, sans-serif;
 
     --color-bg: var(--bg);
     --color-bg-2: var(--bg-2);
@@ -98,6 +102,7 @@
     --color-accent-soft: var(--accent-soft);
     --color-on-accent: var(--on-accent);
     --color-night: var(--night);
+    --color-sticker: var(--sticker);
     --color-ok: var(--ok);
     --color-ok-soft: var(--ok-soft);
     --color-warn: var(--warn);
@@ -108,15 +113,15 @@
 
     --shadow-soft: var(--shadow-soft);
     --shadow-lift: var(--shadow-lift);
+    --shadow-sticker: var(--shadow-sticker);
 
-    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
     html {
         -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
     }
 
     body {
@@ -135,115 +140,138 @@
     }
 
     :focus-visible {
-        outline: 2px solid var(--accent);
+        outline: 3px solid var(--accent);
         outline-offset: 3px;
-        border-radius: 6px;
+        border-radius: 10px;
     }
 
-    .font-display {
-        letter-spacing: -0.02em;
+    input[type='search']::-webkit-search-cancel-button {
+        appearance: none;
     }
 }
 
 @layer components {
-    /* Fondo con brillo suave fijo (no se repinta al hacer scroll). */
+    /* Fondo con lunares y estrellitas suaves (fijo, no se repinta al hacer scroll). */
     .kc-backdrop::before {
         content: '';
         position: fixed;
         inset: 0;
         z-index: -1;
         pointer-events: none;
-        background:
-            radial-gradient(60rem 36rem at 85% -10%, color-mix(in oklab, var(--brand) 18%, transparent), transparent 70%),
-            radial-gradient(40rem 30rem at -10% 30%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+        background-image:
+            radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--accent) 16%, transparent) 0 2px, transparent 3px),
+            radial-gradient(circle at 70% 40%, color-mix(in oklab, var(--brand) 18%, transparent) 0 2px, transparent 3px),
+            radial-gradient(48rem 30rem at 100% 0%, color-mix(in oklab, var(--brand) 16%, transparent), transparent 70%),
+            radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%);
+        background-size: 46px 46px, 62px 62px, auto, auto;
     }
 
     .eyebrow {
         display: inline-flex;
         width: fit-content;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.45rem;
         border-radius: 9999px;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.68rem;
+        padding: 0.3rem 0.85rem;
+        font-family: var(--font-display);
+        font-size: 0.8rem;
         font-weight: 600;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
+        letter-spacing: 0.02em;
         color: var(--brand-strong);
         background: var(--brand-soft);
-        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 18%, transparent);
+        border: 2px solid var(--line-strong);
     }
 
-    /* Tarjeta de doble bisel: carcasa exterior + nucleo interior. */
+    /* Tarjeta tipo sticker: borde grueso y sombra desplazada. */
     .shell {
         border-radius: 1.75rem;
-        padding: 0.375rem;
-        background: color-mix(in oklab, var(--ink) 3.5%, transparent);
-        box-shadow: inset 0 0 0 1px var(--line);
     }
 
     .core {
-        border-radius: calc(1.75rem - 0.375rem);
+        border-radius: 1.75rem;
         background: var(--surface);
-        box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.06);
+        border: 3px solid var(--sticker);
+        box-shadow: var(--shadow-sticker);
+    }
+
+    .sticker {
+        border-radius: 1.5rem;
+        background: var(--surface);
+        border: 3px solid var(--sticker);
+        box-shadow: var(--shadow-sticker);
     }
 
     .panel {
-        border-radius: 1.25rem;
+        border-radius: 1.5rem;
         background: var(--surface);
-        box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--line);
+        border: 2px solid var(--line);
+        box-shadow: var(--shadow-soft);
     }
 
     .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.6rem;
+        gap: 0.55rem;
         border-radius: 9999px;
-        padding: 0.7rem 1.25rem;
-        font-size: 0.875rem;
+        padding: 0.7rem 1.3rem;
+        font-family: var(--font-display);
+        font-size: 0.95rem;
         font-weight: 600;
         line-height: 1.2;
         white-space: nowrap;
+        border: 2.5px solid transparent;
         transition:
-            transform 0.5s var(--ease-spring),
-            background-color 0.3s var(--ease-out-soft),
-            box-shadow 0.3s var(--ease-out-soft),
-            color 0.3s var(--ease-out-soft);
+            transform 0.35s var(--ease-spring),
+            background-color 0.25s var(--ease-out-soft),
+            box-shadow 0.25s var(--ease-out-soft),
+            color 0.25s var(--ease-out-soft);
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
     }
 
     .btn:active {
-        transform: scale(0.97);
+        transform: translateY(1px) scale(0.98);
     }
 
     .btn-primary {
         background: var(--accent);
         color: var(--on-accent);
-        box-shadow: 0 10px 24px -12px color-mix(in oklab, var(--accent) 80%, transparent);
+        border-color: var(--sticker);
+        box-shadow: 3px 3px 0 var(--sticker);
     }
 
     .btn-primary:hover {
         background: var(--accent-strong);
+        box-shadow: 4px 5px 0 var(--sticker);
     }
 
     .btn-dark {
-        background: var(--ink);
-        color: var(--bg);
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--sticker);
+        box-shadow: 3px 3px 0 var(--sticker);
+    }
+
+    [data-theme='dark'] .btn-dark {
+        color: #1d0b2b;
     }
 
     .btn-dark:hover {
-        background: color-mix(in oklab, var(--ink) 85%, var(--brand));
+        background: var(--brand-strong);
     }
 
     .btn-ghost {
         background: var(--surface);
         color: var(--ink);
-        box-shadow: inset 0 0 0 1px var(--line-strong);
+        border-color: var(--line-strong);
     }
 
     .btn-ghost:hover {
-        background: var(--surface-2);
-        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 40%, transparent);
+        border-color: var(--brand);
+        color: var(--brand-strong);
     }
 
     .btn-danger {
@@ -257,11 +285,10 @@
     }
 
     .btn-sm {
-        padding: 0.45rem 0.85rem;
-        font-size: 0.8rem;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.85rem;
     }
 
-    /* Icono anidado dentro del boton (boton dentro de boton). */
     .btn-orb {
         display: inline-flex;
         height: 1.75rem;
@@ -270,25 +297,24 @@
         justify-content: center;
         border-radius: 9999px;
         margin-right: -0.55rem;
-        background: rgb(255 255 255 / 0.2);
-        transition: transform 0.5s var(--ease-spring);
+        background: rgb(255 255 255 / 0.25);
+        transition: transform 0.4s var(--ease-spring);
     }
 
     .btn:hover .btn-orb {
-        transform: translate(2px, -1px) scale(1.06);
+        transform: rotate(-12deg) scale(1.1);
     }
 
     .field {
         display: block;
         width: 100%;
-        border-radius: 0.9rem;
-        border: 0;
+        border-radius: 1rem;
+        border: 2px solid var(--line-strong);
         background-color: var(--surface-2);
         color: var(--ink);
-        padding: 0.72rem 0.95rem;
-        font-size: 0.9rem;
-        box-shadow: inset 0 0 0 1px var(--line-strong);
-        transition: box-shadow 0.25s var(--ease-out-soft), background-color 0.25s var(--ease-out-soft);
+        padding: 0.7rem 0.95rem;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
 
     .field::placeholder {
@@ -298,20 +324,15 @@
     .field:focus {
         outline: none;
         background-color: var(--surface);
-        box-shadow:
-            inset 0 0 0 1px var(--brand),
-            0 0 0 4px color-mix(in oklab, var(--brand) 16%, transparent);
-    }
-
-    select.field {
-        padding-right: 2.5rem;
+        border-color: var(--brand);
+        box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent);
     }
 
     .label {
         display: block;
         margin-bottom: 0.4rem;
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-size: 0.85rem;
+        font-weight: 700;
         color: var(--ink-2);
     }
 
@@ -320,16 +341,16 @@
         align-items: center;
         gap: 0.4rem;
         border-radius: 9999px;
-        padding: 0.22rem 0.65rem;
-        font-size: 0.72rem;
-        font-weight: 600;
+        padding: 0.22rem 0.7rem;
+        font-size: 0.75rem;
+        font-weight: 800;
         white-space: nowrap;
     }
 
     .badge::before {
         content: '';
-        height: 0.4rem;
-        width: 0.4rem;
+        height: 0.45rem;
+        width: 0.45rem;
         border-radius: 9999px;
         background: currentColor;
     }
@@ -343,7 +364,7 @@
 
     .tabla {
         width: 100%;
-        font-size: 0.875rem;
+        font-size: 0.9rem;
         border-collapse: separate;
         border-spacing: 0;
     }
@@ -351,22 +372,22 @@
     .tabla thead th {
         padding: 0.8rem 1rem;
         text-align: left;
-        font-size: 0.7rem;
+        font-family: var(--font-display);
+        font-size: 0.8rem;
         font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--ink-3);
-        border-bottom: 1px solid var(--line);
+        color: var(--brand);
+        background: var(--surface-2);
+        border-bottom: 2px solid var(--line);
     }
 
     .tabla tbody td {
-        padding: 0.9rem 1rem;
+        padding: 0.85rem 1rem;
         border-bottom: 1px solid var(--line);
         vertical-align: middle;
     }
 
     .tabla tbody tr {
-        transition: background-color 0.25s var(--ease-out-soft);
+        transition: background-color 0.2s;
     }
 
     .tabla tbody tr:hover {
@@ -385,98 +406,149 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        border-radius: 0.9rem;
+        border-radius: 1rem;
         padding: 0.6rem 0.85rem;
-        font-size: 0.875rem;
-        font-weight: 500;
+        font-size: 0.92rem;
+        font-weight: 700;
         color: var(--ink-2);
-        transition: background-color 0.25s var(--ease-out-soft), color 0.25s var(--ease-out-soft);
+        transition: background-color 0.2s, color 0.2s, transform 0.3s var(--ease-spring);
     }
 
     .nav-pill:hover {
-        background: var(--surface-2);
-        color: var(--ink);
+        background: var(--brand-soft);
+        color: var(--brand-strong);
+        transform: translateX(3px);
     }
 
     .nav-pill[aria-current='page'] {
-        background: var(--ink);
-        color: var(--bg);
+        background: var(--brand);
+        color: #fff;
+        box-shadow: 3px 3px 0 var(--sticker);
+    }
+
+    [data-theme='dark'] .nav-pill[aria-current='page'] {
+        color: #1d0b2b;
     }
 
     .chip {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.45rem;
         border-radius: 9999px;
-        padding: 0.5rem 1rem;
-        font-size: 0.82rem;
+        padding: 0.4rem 0.95rem 0.4rem 0.4rem;
+        font-family: var(--font-display);
+        font-size: 0.9rem;
         font-weight: 600;
         color: var(--ink-2);
         background: var(--surface);
-        box-shadow: inset 0 0 0 1px var(--line-strong);
-        transition: all 0.35s var(--ease-spring);
+        border: 2.5px solid var(--line-strong);
+        transition: all 0.3s var(--ease-spring);
     }
 
     .chip:hover {
-        color: var(--ink);
-        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 45%, transparent);
+        border-color: var(--brand);
+        transform: rotate(-2deg);
     }
 
     .chip[aria-pressed='true'] {
-        background: var(--ink);
-        color: var(--bg);
-        box-shadow: none;
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--sticker);
+        box-shadow: 3px 3px 0 var(--sticker);
+    }
+
+    [data-theme='dark'] .chip[aria-pressed='true'] {
+        color: #1d0b2b;
+    }
+
+    .chip-sola {
+        padding-left: 0.95rem;
     }
 
     .link {
         color: var(--brand);
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-color: color-mix(in oklab, var(--brand) 30%, transparent);
-        text-underline-offset: 3px;
+        font-weight: 800;
+        text-decoration: underline wavy;
+        text-decoration-color: color-mix(in oklab, var(--accent) 60%, transparent);
+        text-underline-offset: 4px;
     }
 
     .link:hover {
-        text-decoration-color: var(--brand);
+        color: var(--accent-strong);
+    }
+
+    /* Recorte circular de una ilustración de Kuromi (marca y avatares). */
+    .medalla {
+        border-radius: 9999px;
+        object-fit: cover;
+        border: 3px solid var(--sticker);
+        background: var(--brand-soft);
+    }
+
+    /* Foto de producto: fondo lavanda para fotos pequeñas o con fondo blanco. */
+    .foto {
+        background: radial-gradient(circle at 50% 40%, #fff 0, var(--brand-soft) 70%);
+    }
+
+    [data-theme='dark'] .foto {
+        background: radial-gradient(circle at 50% 40%, #3a2150 0, #241233 75%);
     }
 }
 
-/* Aparicion al entrar en pantalla (IntersectionObserver en app.js). */
+/* Animaciones (solo si el usuario no pidió reducir movimiento). */
 @media (prefers-reduced-motion: no-preference) {
     .reveal {
         opacity: 0;
-        transform: translateY(28px);
-        filter: blur(6px);
-        transition:
-            opacity 0.9s var(--ease-out-soft),
-            transform 0.9s var(--ease-out-soft),
-            filter 0.9s var(--ease-out-soft);
+        transform: translateY(24px) scale(0.98);
+        transition: opacity 0.8s var(--ease-out-soft), transform 0.8s var(--ease-spring);
         transition-delay: var(--delay, 0ms);
     }
 
     .reveal.is-visible {
         opacity: 1;
         transform: none;
-        filter: none;
     }
 
     .float-slow {
-        animation: kc-float 7s var(--ease-out-soft) infinite alternate;
+        animation: kc-float 6s ease-in-out infinite alternate;
     }
 
     .twinkle {
-        animation: kc-twinkle 3.2s ease-in-out infinite;
+        animation: kc-twinkle 2.6s ease-in-out infinite;
+    }
+
+    .wiggle:hover {
+        animation: kc-wiggle 0.5s ease-in-out;
+    }
+
+    .marquee {
+        animation: kc-marquee 40s linear infinite;
+    }
+
+    .marquee:hover {
+        animation-play-state: paused;
     }
 }
 
 @keyframes kc-float {
     from { transform: translateY(0) rotate(var(--rot, 0deg)); }
-    to { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+    to { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
 }
 
 @keyframes kc-twinkle {
-    0%, 100% { opacity: 0.35; transform: scale(0.85); }
-    50% { opacity: 1; transform: scale(1); }
+    0%, 100% { opacity: 0.45; transform: scale(0.8) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.1) rotate(15deg); }
+}
+
+@keyframes kc-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+@keyframes kc-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -486,9 +558,4 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-}
-
-/* Se usa un boton propio para limpiar la busqueda. */
-input[type='search']::-webkit-search-cancel-button {
-    appearance: none;
 }

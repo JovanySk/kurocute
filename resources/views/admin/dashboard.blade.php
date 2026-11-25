@@ -4,10 +4,13 @@
     @endpush
 
     <x-slot name="header">
-        <div>
+        <div class="flex items-center gap-5">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Kuromi saludando" class="sticker hidden size-24 rotate-[-4deg] object-cover sm:block">
+            <div>
             <p class="eyebrow">{{ ucfirst(now()->translatedFormat('l j \\d\\e F')) }}</p>
             <h1 class="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">Hola, {{ strtok(auth()->user()->name, ' ') }}</h1>
             <p class="mt-1.5 text-ink-2">Así va la tienda este mes.</p>
+        </div>
         </div>
         @can('administrar')
             <a href="{{ route('facturas.create') }}" class="btn btn-primary self-start py-3 pl-5 pr-2.5 sm:self-auto">Nueva factura <span class="btn-orb"><x-icono nombre="mas" clase="size-4" /></span></a>
@@ -20,7 +23,7 @@
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div class="reveal shell sm:col-span-2 xl:col-span-1">
             <div class="core relative h-full overflow-hidden !bg-night p-6 text-white">
-                <div class="pointer-events-none absolute -right-16 -top-16 size-52 rounded-full bg-[#8b5cf6]/35 blur-3xl"></div>
+                <div class="pointer-events-none absolute -right-16 -top-16 size-52 rounded-full bg-[#ff4fa3]/40 blur-3xl"></div>
                 <p class="relative text-sm text-white/65">Cobrado este mes</p>
                 <p class="num relative mt-3 font-display text-4xl font-semibold">{{ $dinero($kpis['cobrado_mes']) }}</p>
                 <p class="relative mt-3 text-sm text-white/65">

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('slug')->unique();
             $table->string('descripcion')->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
 

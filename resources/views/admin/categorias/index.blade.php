@@ -12,7 +12,7 @@
             @foreach ($categorias as $i => $c)
                 <article class="panel group overflow-hidden" x-data="{ editar: false }">
                     <div class="flex items-start gap-4 p-5">
-                        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" class="size-16 shrink-0 rounded-2xl" aria-hidden="true"><use href="#kc-arte-{{ $i % 6 }}"/></svg>
+                        <img src="{{ $c->portadaUrl() }}" alt="" class="size-16 shrink-0 rounded-2xl border-2 border-line-strong object-cover">
                         <div class="min-w-0 flex-1">
                             <h2 class="font-semibold">{{ $c->nombre }}</h2>
                             <p class="num text-sm text-ink-3">{{ $c->productos_count }} productos</p>

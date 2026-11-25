@@ -1,14 +1,14 @@
 <x-layouts.tienda titulo="Confirmar pedido">
     <section class="mx-auto max-w-6xl px-4 pt-14 sm:px-6">
         <p class="eyebrow">Último paso</p>
-        <h1 class="mt-5 font-display text-4xl font-semibold tracking-tight sm:text-5xl">Confirma tu pedido</h1>
+        <div class="mt-3 flex items-center gap-4"><img src="{{ asset('images/ima3.jpg') }}" alt="" class="medalla size-16 sm:size-20"><h1 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">Confirma tu pedido</h1></div>
 
         <x-flash class="mt-8" />
 
         @if ($partidas->isEmpty())
             <div class="shell mt-10">
                 <div class="core flex flex-col items-center px-6 py-20 text-center">
-                    <span class="inline-flex size-16 items-center justify-center rounded-full bg-brand-soft text-brand"><x-icono nombre="bolsa" clase="size-7" /></span>
+                    <img src="{{ asset('images/ima5.jpg') }}" alt="Kuromi dormida" class="medalla size-36">
                     <p class="mt-5 font-display text-xl font-semibold">Tu pedido está vacío</p>
                     <p class="mt-1 text-ink-2">Agrega productos desde el catálogo para continuar.</p>
                     <a href="{{ route('tienda.catalogo') }}" class="btn btn-dark mt-6">Ir al catálogo</a>
@@ -16,7 +16,7 @@
             </div>
         @else
             <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-                <form method="POST" action="{{ route('carrito.confirmar') }}" class="shell order-2 lg:order-1">
+                <form method="POST" action="{{ route('carrito.confirmar') }}" class="order-2 lg:order-1">
                     @csrf
                     <div class="core p-6 sm:p-8">
                         <h2 class="font-display text-xl font-semibold">Tus datos</h2>
@@ -64,7 +64,7 @@
                         <ul class="mt-5 divide-y divide-line">
                             @foreach ($partidas as $p)
                                 <li class="flex items-center gap-4 py-3.5">
-                                    <div class="size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-line"><x-producto-arte :producto="$p['producto']" /></div>
+                                    <div class="size-14 shrink-0 overflow-hidden rounded-xl border-2 border-line-strong"><x-producto-arte :producto="$p['producto']" ajuste="object-contain p-1" /></div>
                                     <div class="min-w-0 flex-1">
                                         <p class="truncate text-sm font-semibold">{{ $p['producto']->nombre }}</p>
                                         <p class="num text-xs text-ink-3">{{ $p['cantidad'] }} x ${{ number_format($p['producto']->precio, 2) }}</p>
