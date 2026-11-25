@@ -2,19 +2,19 @@
     {{-- Hero con el collage de ilustraciones de Kuromi --}}
     <section class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-10 sm:px-6 md:pt-14 lg:grid-cols-[1fr_1.05fr]">
         <div class="relative z-10">
-            <p class="eyebrow reveal"><x-deco tipo="calavera" clase="size-5 text-white" /> Tiendita de fans de Kuromi</p>
+            <p class="eyebrow reveal"><x-deco tipo="calavera" clase="size-5 text-white" /> Tu tiendita de Kuromi</p>
             <h1 class="reveal mt-5 font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl" style="--delay: 80ms">
                 ¡Hola, esto es <span class="relative inline-block text-brand">Kuro<span class="text-accent">Cute</span></span>!
             </h1>
             <p class="reveal mt-5 max-w-md text-lg font-semibold leading-relaxed text-ink-2" style="--delay: 160ms">
-                Peluches y figuras de Kuromi, maquillaje lindo y hasta motos. Arma tu pedido en minutos y te mandamos tu factura por correo.
+                Peluches, figuras, láminas y stickers de Kuromi. Arma tu pedido en minutos y te mandamos tu factura por correo.
             </p>
 
             <form action="{{ route('tienda.catalogo') }}" method="GET" class="reveal mt-7 max-w-md" style="--delay: 240ms" role="search">
                 <label for="hero-buscar" class="sr-only">Buscar productos</label>
                 <div class="flex items-center gap-2 rounded-full border-[3px] border-sticker bg-surface py-1.5 pl-5 pr-1.5 shadow-sticker">
                     <x-icono nombre="buscar" clase="size-5 shrink-0 text-brand" />
-                    <input id="hero-buscar" type="search" name="q" placeholder="Busca peluches, labiales, motos..." class="w-full border-0 bg-transparent px-1 py-2 font-semibold text-ink placeholder:text-ink-3 focus:outline-none focus:ring-0">
+                    <input id="hero-buscar" type="search" name="q" placeholder="Busca peluches, figuras, stickers..." class="w-full border-0 bg-transparent px-1 py-2 font-semibold text-ink placeholder:text-ink-3 focus:outline-none focus:ring-0">
                     <button type="submit" class="btn btn-primary shrink-0 !shadow-none py-2.5">Buscar</button>
                 </div>
             </form>
@@ -128,16 +128,23 @@
         </div>
     </section>
 
-    {{-- Banner de motos con el logo original VYHZ --}}
+    {{-- Colección de láminas y stickers con las ilustraciones originales --}}
     <section class="mx-auto max-w-6xl px-4 sm:px-6">
-        <a href="{{ route('tienda.catalogo', ['categoria' => 'motos']) }}" class="reveal sticker group grid overflow-hidden !bg-night text-white md:grid-cols-[1fr_1.2fr]">
+        <a href="{{ route('tienda.catalogo', ['categoria' => 'laminas-y-stickers']) }}" class="reveal sticker group grid overflow-hidden !bg-night text-white md:grid-cols-[1fr_1.2fr]">
             <div class="flex flex-col justify-center gap-4 p-8 sm:p-10">
-                <img src="{{ asset('images/logoinicial.jpeg') }}" alt="VYHZ" class="w-48 rounded-xl">
-                <h2 class="font-display text-3xl font-bold leading-tight sm:text-4xl">También tenemos motos <span class="text-[#ff6fb7]">con actitud</span>.</h2>
-                <p class="font-semibold text-white/70">Deportivas y urbanas, con factura y asesoría de pago.</p>
-                <span class="btn btn-primary w-fit">Ver motos <x-icono nombre="flecha" clase="size-4" /></span>
+                <img src="{{ asset('images/ima6.jpg') }}" alt="" class="medalla size-20 !border-white object-[50%_20%] rotate-[-6deg] transition duration-500 ease-[var(--ease-spring)] group-hover:rotate-6">
+                <p class="eyebrow w-fit"><x-deco tipo="brillo" clase="size-4 text-white" /> Colección Kuromi</p>
+                <h2 class="font-display text-3xl font-bold leading-tight sm:text-4xl">Lleva a Kuromi <span class="text-[#ff6fb7]">a todas partes</span>.</h2>
+                <p class="font-semibold text-white/70">Láminas ilustradas para tu cuarto y stickers de vinil para tu laptop, termo o libreta.</p>
+                <span class="btn btn-primary w-fit">Ver láminas y stickers <x-icono nombre="flecha" clase="size-4" /></span>
             </div>
-            <div class="min-h-56 overflow-hidden"><img src="{{ asset('images/img2.jpg') }}" alt="Moto deportiva verde" class="size-full object-cover transition duration-700 group-hover:scale-105"></div>
+            <div class="relative grid min-h-64 grid-cols-3 items-center gap-4 bg-brand/25 p-6 sm:p-8" aria-hidden="true">
+                <img src="{{ asset('images/ima3.jpg') }}" alt="" class="aspect-square w-full rounded-2xl border-[3px] border-white object-cover rotate-[-4deg] transition duration-500 group-hover:rotate-0">
+                <img src="{{ asset('images/image1.jpg') }}" alt="" class="aspect-square w-full -translate-y-4 rounded-2xl border-[3px] border-white object-cover rotate-[3deg] transition duration-500 group-hover:rotate-0">
+                <img src="{{ asset('images/ima2.jpg') }}" alt="" class="aspect-square w-full rounded-2xl border-[3px] border-white object-cover rotate-[-2deg] transition duration-500 group-hover:rotate-0">
+                <x-deco tipo="estrella" clase="twinkle absolute right-5 top-4 size-7 text-[#ffd84d]" />
+                <x-deco tipo="corazon" clase="twinkle absolute bottom-4 left-6 size-7 text-[#ff6fb7] [animation-delay:700ms]" />
+            </div>
         </a>
     </section>
 </x-layouts.tienda>

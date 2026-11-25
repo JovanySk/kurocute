@@ -20,7 +20,7 @@
                     <img src="{{ asset('images/ima6.jpg') }}" alt="" class="medalla size-14 !border-white object-[50%_20%] transition duration-500 ease-[var(--ease-spring)] group-hover:-rotate-12">
                     <span class="font-display text-3xl font-bold">Kuro<span class="text-[#ff6fb7]">Cute</span></span>
                 </a>
-                <p class="mt-4 leading-relaxed text-white/70">Tu tiendita favorita de Kuromi: peluches, figuras, maquillaje y hasta motos. Hecho con mucho cariño en Tantoyuca.</p>
+                <p class="mt-4 leading-relaxed text-white/70">Tu tiendita favorita de Kuromi: peluches, figuras, láminas y stickers. Hecho con mucho cariño en Tantoyuca.</p>
             </div>
             <div>
                 <p class="{{ $titulo }}">Síguenos</p>
@@ -111,7 +111,7 @@
         <div class="flex flex-col gap-2 border-t border-white/10 py-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
             <p>&copy; {{ date('Y') }} KuroCute. Todos los derechos reservados.</p>
             <p>Tienda desarrollada por <span class="font-semibold text-white/85">Jovany</span></p>
-            <p class="text-xs text-white/40">Kuromi &copy; Sanrio. Sitio de fans.</p>
+            <p class="text-xs text-white/40">Kuromi &copy; Sanrio.</p>
         </div>
     </div>
 </footer>

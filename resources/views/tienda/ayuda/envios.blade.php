@@ -52,10 +52,10 @@
 
         <div class="mt-8 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <div class="reveal flex items-start gap-4">
-                <img src="{{ asset('images/img2.jpg') }}" alt="Moto deportiva verde" class="size-20 shrink-0 rounded-2xl border-[3px] border-sticker object-cover">
+                <img src="{{ asset('images/descarga2.jpg') }}" alt="Kuromi con vestido de moños" class="size-20 shrink-0 rounded-2xl border-[3px] border-sticker object-cover">
                 <div>
-                    <h2 class="font-display text-xl font-semibold">¿Y las motos?</h2>
-                    <p class="mt-1 font-semibold text-ink-2">Coordinamos la entrega contigo, siempre con factura y asesoría de pago.</p>
+                    <h2 class="font-display text-xl font-semibold">¿Compras para tu tienda?</h2>
+                    <p class="mt-1 font-semibold text-ink-2">Surtimos peluches, figuras y stickers por mayoreo, con factura. Cuéntanos qué necesitas y te mandamos precios.</p>
                 </div>
             </div>
             <div class="reveal flex flex-wrap gap-3">

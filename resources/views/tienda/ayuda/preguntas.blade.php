@@ -8,7 +8,7 @@
         ['¿Puedo recogerlo en Tantoyuca?', 'Claro. Escríbelo en “Notas” al confirmar tu pedido y te avisamos cuando esté listo. Puedes pasar de lunes a sábado, de 10:00 a 19:00. Más detalles en <a class="link" href="'.route('ayuda.envios').'">Envíos y entregas</a>.'],
         ['¿Puedo cambiar o cancelar mi pedido?', 'Sí, mientras no haya salido a envío. Escríbenos desde <a class="link" href="'.route('contacto').'">Contacto</a> con tu folio y lo ajustamos.'],
         ['¿Qué pasa si un producto está agotado?', 'No se puede agregar al pedido hasta que vuelva. En cada ficha verás si está disponible o cuántas piezas quedan, y las cantidades de tu pedido se ajustan al stock.'],
-        ['¿Las motos también se piden aquí?', 'Sí, se agregan al pedido igual que cualquier producto. Las entregamos con factura y te damos asesoría de pago. Míralas en el <a class="link" href="'.route('tienda.catalogo', ['categoria' => 'motos']).'">catálogo de motos</a>.'],
+        ['¿Venden por mayoreo?', 'Sí. Si tienes una tienda o papelería, surtimos <a class="link" href="'.route('tienda.catalogo', ['categoria' => 'kuromi']).'">peluches</a>, <a class="link" href="'.route('tienda.catalogo', ['categoria' => 'figuras']).'">figuras</a> y <a class="link" href="'.route('tienda.catalogo', ['categoria' => 'laminas-y-stickers']).'">stickers</a> de Kuromi con factura. <a class="link" href="'.route('contacto').'">Escríbenos</a> con lo que necesitas y te mandamos precios.'],
     ];
 @endphp
 <x-layouts.tienda titulo="Preguntas frecuentes">

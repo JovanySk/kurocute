@@ -18,7 +18,7 @@
                             <x-icono nombre="buscar" clase="size-5 transition duration-300" x-bind:class="buscando && 'scale-0 opacity-0'" />
                             <span x-show="buscando" x-cloak class="absolute size-4 animate-spin rounded-full border-[3px] border-accent border-t-transparent"></span>
                         </span>
-                        <input id="buscar" type="search" x-model="q" placeholder="Peluche, labial, moto..." autocomplete="off"
+                        <input id="buscar" type="search" x-model="q" placeholder="Peluche, figura, sticker..." autocomplete="off"
                             class="w-full border-0 bg-transparent py-2 font-semibold text-ink placeholder:text-ink-3 focus:outline-none focus:ring-0">
                         <button type="button" x-show="q" x-cloak @click="q = ''" class="inline-flex size-8 shrink-0 items-center justify-center rounded-full text-ink-3 hover:bg-surface-2 hover:text-ink" aria-label="Borrar búsqueda">
                             <x-icono nombre="cerrar" clase="size-4" />

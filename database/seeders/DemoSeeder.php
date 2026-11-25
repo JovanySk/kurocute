@@ -23,33 +23,31 @@ use Illuminate\Support\Str;
  */
 class DemoSeeder extends Seeder
 {
-    /** nombre => [descripción, portada] */
+    /** nombre => [slug, descripción, portada] */
     private const CATEGORIAS = [
-        'Peluches Kuromi' => ['Peluches suavecitos y figuras coleccionables de Kuromi para tu repisa o tu cama.', 'images/ima4.jpg'],
-        'Maquillaje' => ['Labiales, gloss, polvos y brochas para un look tierno o atrevido.', 'images/imagen4.jpg'],
-        'Motos' => ['Motocicletas deportivas y urbanas. Entrega con factura y asesoría de pago.', 'images/img1.jpg'],
+        'Peluches Kuromi' => ['kuromi', 'Peluches suavecitos de Kuromi para abrazar, regalar o presumir en tu cama.', 'images/ima4.jpg'],
+        'Figuras Kuromi' => ['figuras', 'Figuras de vinil coleccionables, sueltas o en su caja de exhibición.', 'productos/descarga2.jpg'],
+        'Láminas y stickers' => ['laminas-y-stickers', 'Láminas ilustradas, stickers y postales de Kuromi para tu cuarto, tu libreta o tu laptop.', 'images/ima1.jpg'],
     ];
 
     /** [nombre, categoría, precio, descripción, destacado, foto original] */
     private const PRODUCTOS = [
-        ['Figura Kuromi Corazón Lila', 'Peluches Kuromi', 329, 'Figura de vinil de Kuromi abrazando un corazón rosa. 12 cm, ideal para escritorio.', true, 'productos/descarga.jpg'],
-        ['Figura Kuromi con Tridente en Caja', 'Peluches Kuromi', 459, 'Figura coleccionable de Kuromi con su tridente dorado, en caja de exhibición.', true, 'productos/descarga2.jpg'],
         ['Peluche Kuromi Esponjoso con Moño', 'Peluches Kuromi', 549, 'Peluche de felpa extra suave con moño y pancita lila. 30 cm.', true, 'productos/descarga3.jpg'],
         ['Peluche Kuromi Vestido Lila Gigante', 'Peluches Kuromi', 689, 'Kuromi grande con vestido lila y orejitas rellenas. Perfecto para abrazar. 45 cm.', true, 'productos/descarga5.jpg'],
         ['Peluche Kuromi Clásico 25 cm', 'Peluches Kuromi', 399, 'El clásico: capucha negra, calavera rosa y sonrisa traviesa. 25 cm.', false, 'productos/descarga6.jpg'],
-        ['Figura Kuromi Edición Coleccionista', 'Peluches Kuromi', 499, 'Figura en tonos lila con llave mágica, en caja ilustrada de edición especial.', true, 'productos/descarga7.jpg'],
-        ['Labial Cremoso Rosa Malva', 'Maquillaje', 189, 'Labial de acabado satinado en tono rosa malva. Hidrata y dura hasta 8 horas.', true, 'images/2.jpg'],
-        ['Labial Rojo Intenso Larga Duración', 'Maquillaje', 219, 'Rojo clásico de alta pigmentación que no se transfiere. Acabado mate.', false, 'images/imagen3.jpg'],
-        ['Kit de Brochas y Paleta de Sombras', 'Maquillaje', 649, 'Paleta de 18 sombras en tonos nude y rosa con set de brochas suaves.', true, 'images/imagen4.jpg'],
-        ['Gloss Efecto Espejo', 'Maquillaje', 159, 'Brillo labial transparente con efecto espejo y aroma a fresa.', false, 'images/imagen45.jpg'],
-        ['Polvo Compacto Matificante', 'Maquillaje', 199, 'Polvo compacto que controla el brillo y difumina poros. Incluye espejo.', false, 'images/imagen5.jpg'],
-        ['Aceite Labial Rosado', 'Maquillaje', 179, 'Aceite labial con color translúcido, hidratación y brillo natural.', true, 'productos/descarga4.jpg'],
-        ['Moto Naked 200 cc Negro y Rojo', 'Motos', 45900, 'Motocicleta naked de 200 cc, frenos de disco y tablero digital. Ideal para ciudad.', false, 'productos/apache2.jpg'],
-        ['Moto Sport Carenada 200 cc', 'Motos', 62900, 'Deportiva carenada de 200 cc con faro LED y posición de manejo sport.', true, 'productos/bajaj1.jpg'],
-        ['Moto Urbana 300 cc Roja', 'Motos', 48500, 'Motocicleta urbana de 300 cc con suspensión invertida y luces LED.', false, 'productos/veloci4.jpg'],
-        ['Moto Deportiva 400 cc Verde Pista', 'Motos', 139900, 'Deportiva de 400 cc en verde lima, lista para pista y carretera.', true, 'images/img1.jpg'],
-        ['Moto Deportiva 650 cc Verde Ciudad', 'Motos', 189900, 'Bicilíndrica de 650 cc con carenado completo y control de tracción.', false, 'images/img2.jpg'],
-        ['Moto Sport Touring 650 cc', 'Motos', 179900, 'Sport touring de 650 cc, cómoda para viajes largos y uso diario.', false, 'images/img3.jpg'],
+        ['Figura Kuromi Corazón Lila', 'Figuras Kuromi', 329, 'Figura de vinil de Kuromi abrazando un corazón rosa. 12 cm, ideal para escritorio.', true, 'productos/descarga.jpg'],
+        ['Figura Kuromi con Tridente en Caja', 'Figuras Kuromi', 459, 'Figura coleccionable de Kuromi con su tridente dorado, en caja de exhibición.', true, 'productos/descarga2.jpg'],
+        ['Figura Kuromi Edición Coleccionista', 'Figuras Kuromi', 499, 'Figura en tonos lila con llave mágica, en caja ilustrada de edición especial.', true, 'productos/descarga7.jpg'],
+        ['Lámina Kuromi en la Luna', 'Láminas y stickers', 149, 'Lámina ilustrada tamaño carta en papel couché mate. Kuromi sentada en su luna lila.', true, 'images/ima3.jpg'],
+        ['Lámina Kuromi y My Melody', 'Láminas y stickers', 169, 'Lámina vertical de Kuromi y My Melody con flores. Papel grueso de 300 g, 20 x 35 cm.', false, 'images/ima1.jpg'],
+        ['Lámina Kuromi Arcoíris', 'Láminas y stickers', 129, 'Lámina cuadrada de Kuromi guiñando el ojo entre arcoíris y estrellas. 20 x 20 cm.', true, 'images/image1.jpg'],
+        ['Lámina Kuromi Soñadora', 'Láminas y stickers', 129, 'Kuromi con los ojitos cerrados en un campo de flores. Lámina de 20 x 20 cm.', false, 'images/ima2.jpg'],
+        ['Postal Kuromi Tarot', 'Láminas y stickers', 59, 'Postal de Kuromi leyendo cartas junto a su bola de cristal. Incluye sobre lila.', false, 'images/descarga5.jpg'],
+        ['Sticker Kuromi Diablita', 'Láminas y stickers', 39, 'Sticker de vinil resistente al agua con Kuromi y su tridente. 8 cm.', false, 'images/descarga3.jpg'],
+        ['Sticker Kuromi Gótica', 'Láminas y stickers', 45, 'Sticker de vinil con Kuromi en su vestido gótico de moños. 8 cm.', false, 'images/descarga2.jpg'],
+        ['Sticker Kuromi en su Nube', 'Láminas y stickers', 39, 'Sticker de vinil con Kuromi sentada en una nube morada. 7 cm.', false, 'images/descarga4.jpg'],
+        ['Sticker Kuromi Coqueta', 'Láminas y stickers', 39, 'Sticker de vinil con Kuromi guiñando el ojo y su flechita de corazón. 8 cm.', false, 'images/descarga1.jpg'],
+        ['Pack de Stickers Kuromi', 'Láminas y stickers', 99, 'Pack de 5 stickers de vinil surtidos de Kuromi para tu laptop, termo o libreta.', true, 'images/ima5.jpg'],
     ];
 
     private const CLIENTES = [
@@ -71,9 +69,9 @@ class DemoSeeder extends Seeder
 
         $categorias = collect(self::CATEGORIAS)->map(fn (array $c, string $nombre) => Categoria::create([
             'nombre' => $nombre,
-            'slug' => Str::slug($nombre === 'Peluches Kuromi' ? 'kuromi' : $nombre),
-            'descripcion' => $c[0],
-            'imagen' => $c[1],
+            'slug' => $c[0],
+            'descripcion' => $c[1],
+            'imagen' => $c[2],
         ]));
 
         $productos = collect(self::PRODUCTOS)->map(function (array $p) use ($categorias) {
@@ -87,7 +85,7 @@ class DemoSeeder extends Seeder
                 'slug' => Str::slug($p[0]),
                 'descripcion' => $p[3],
                 'precio' => $p[2],
-                'stock' => $p[2] > 10000 ? mt_rand(1, 4) : (mt_rand(0, 9) === 0 ? mt_rand(1, 4) : mt_rand(12, 60)),
+                'stock' => mt_rand(0, 9) === 0 ? mt_rand(1, 4) : mt_rand(12, 60),
                 'destacado' => $p[4],
                 'activo' => true,
                 'imagen' => $destino,
@@ -118,8 +116,14 @@ class DemoSeeder extends Seeder
         $personas = $clientes->take(15);
         $empresas = $clientes->slice(15);
         $porCrear = [];
-        $tienda = $productos->filter(fn (Producto $p) => (float) $p->precio < 10000)->values();
-        $motos = $productos->diff($tienda)->sortBy('precio')->values();
+        // Un pedido típico lleva un peluche o una figura y, a veces, láminas o stickers de complemento.
+        $principales = $productos->filter(fn (Producto $p) => (float) $p->precio >= 300)->values();
+        $papeleria = $productos->diff($principales)->values();
+        $surtido = function () use ($principales, $papeleria) {
+            $articulos = mt_rand(1, 10) <= 7 ? $principales->random(mt_rand(1, 2)) : collect();
+
+            return $articulos->merge($papeleria->random(mt_rand($articulos->isEmpty() ? 2 : 0, 2)));
+        };
 
         // Pedidos en línea a lo largo del último año, con crecimiento en los meses recientes.
         $fechas = collect(range(1, 64))
@@ -148,7 +152,7 @@ class DemoSeeder extends Seeder
                 'updated_at' => $fecha,
             ]);
 
-            $this->partidas($pedido, $tienda->random(mt_rand(1, 3)));
+            $this->partidas($pedido, $surtido());
 
             if ($estadoPedido === 'cancelado' || $estadoPedido === 'nuevo') {
                 continue;
@@ -165,29 +169,6 @@ class DemoSeeder extends Seeder
             ] + Factura::importesDesdeTotal((float) $pedido->total));
         }
 
-        // Motos: venta ocasional (dos en el año), siempre fuera del mes actual y del anterior.
-        foreach ([[250, 0], [130, 1]] as [$diasAtras, $indice]) {
-            $fecha = $hoy->copy()->subDays($diasAtras)->setTime(12, 30);
-            $cliente = $personas->random();
-            $pedido = Pedido::create([
-                'folio' => 'PED-M'.str_pad((string) ($indice + 1), 4, '0', STR_PAD_LEFT),
-                'cliente_id' => $cliente->id,
-                'estado' => 'entregado',
-                'total' => 0,
-                'created_at' => $fecha,
-                'updated_at' => $fecha,
-            ]);
-            $this->partidas($pedido, collect([$motos[$indice]]), 1);
-            $porCrear[] = [
-                'cliente_id' => $cliente->id,
-                'pedido_id' => $pedido->id,
-                'forma_pago_id' => $formas[0],
-                'fecha_emision' => $fecha->copy()->addDay(),
-                'detalles' => "Pedido en línea {$pedido->folio}",
-                'estado_id' => $estado(EstadoFactura::PAGADA),
-            ] + Factura::importesDesdeTotal((float) $pedido->total);
-        }
-
         // Ventas de mayoreo facturadas directamente.
         foreach (range(1, 10) as $i) {
             $emision = $hoy->copy()->subDays($i <= 3 ? mt_rand(1, 12) : mt_rand(2, 330))->startOfDay();
@@ -200,7 +181,7 @@ class DemoSeeder extends Seeder
                 'cliente_id' => $empresas->random()->id,
                 'forma_pago_id' => $formas[0],
                 'fecha_emision' => $emision,
-                'detalles' => 'Venta de mayoreo: surtido de '.collect(['peluches de Kuromi', 'figuras de Kuromi', 'labiales', 'paletas de sombras'])->random(2)->implode(' y ').' para reventa.',
+                'detalles' => 'Venta de mayoreo: surtido de '.collect(['peluches de Kuromi', 'figuras de Kuromi', 'láminas ilustradas', 'stickers de Kuromi'])->random(2)->implode(' y ').' para reventa.',
                 'estado_id' => $estado($clave),
             ] + Factura::importesDesdeSubtotal(mt_rand(120, 520) * 10));
         }
@@ -226,10 +207,10 @@ class DemoSeeder extends Seeder
                 'updated_at' => $fecha,
             ]);
             // Cerca de la meta se agrega una sola pieza que quepa, para no pasarse.
-            $caben = $tienda->filter(fn (Producto $p) => (float) $p->precio <= $faltante);
+            $caben = $productos->filter(fn (Producto $p) => (float) $p->precio <= $faltante);
             $faltante > 1800
-                ? $this->partidas($pedido, $tienda->random(mt_rand(1, 2)), 1)
-                : $this->partidas($pedido, $caben->isEmpty() ? $tienda->sortBy('precio')->take(1) : $caben->random(1), 1);
+                ? $this->partidas($pedido, $principales->random(mt_rand(1, 2)), 1)
+                : $this->partidas($pedido, $caben->isEmpty() ? $productos->sortBy('precio')->take(1) : $caben->random(1), 1);
             $faltante -= (float) $pedido->total;
             $porCrear[] = [
                 'cliente_id' => $cliente->id,
@@ -249,7 +230,8 @@ class DemoSeeder extends Seeder
     private function partidas(Pedido $pedido, $articulos, ?int $cantidadFija = null): void
     {
         foreach ($articulos as $producto) {
-            $cantidad = $cantidadFija ?? mt_rand(1, 3);
+            // Los stickers y postales se piden por varias piezas.
+            $cantidad = $cantidadFija ?? ((float) $producto->precio < 100 ? mt_rand(2, 5) : mt_rand(1, 3));
             $pedido->items()->create([
                 'producto_id' => $producto->id,
                 'nombre' => $producto->nombre,

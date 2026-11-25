@@ -33,7 +33,7 @@ class PieDePaginaTest extends TestCase
     public function test_el_pie_enlaza_a_paginas_y_categorias_reales(): void
     {
         $peluches = Categoria::factory()->create(['nombre' => 'Peluches Kuromi', 'slug' => 'kuromi']);
-        $motos = Categoria::factory()->create(['nombre' => 'Motos', 'slug' => 'motos']);
+        $figuras = Categoria::factory()->create(['nombre' => 'Figuras Kuromi', 'slug' => 'figuras']);
 
         $respuesta = $this->get('/')->assertOk();
 
@@ -46,7 +46,7 @@ class PieDePaginaTest extends TestCase
             route('inicio').'#como-funciona',
             route('inicio').'#favoritos',
             route('tienda.catalogo', ['categoria' => $peluches->slug]),
-            route('tienda.catalogo', ['categoria' => $motos->slug]),
+            route('tienda.catalogo', ['categoria' => $figuras->slug]),
         ] as $url) {
             $respuesta->assertSee('href="'.$url.'"', false);
         }
@@ -54,18 +54,29 @@ class PieDePaginaTest extends TestCase
         $respuesta->assertDontSee('href="#"', false);
     }
 
-    public function test_el_pie_muestra_los_creditos_sin_avisos_de_proyecto_escolar(): void
+    public function test_el_pie_muestra_los_creditos(): void
     {
         $this->get('/')
             ->assertOk()
             ->assertSee('KuroCute. Todos los derechos reservados.')
             ->assertSee('Tienda desarrollada por')
-            ->assertSee('Kuromi &copy; Sanrio. Sitio de fans.', false)
+            ->assertSee('Kuromi &copy; Sanrio.', false)
             ->assertSee('Lunes a sábado, 10:00 a 19:00')
             ->assertSee('Tantoyuca, Veracruz')
             ->assertSee('title="Próximamente"', false)
-            ->assertDontSee('Proyecto escolar')
+            ->assertDontSee('Sitio de fans')
             ->assertDontSee('hola@example.com');
+    }
+
+    public function test_la_tienda_solo_habla_de_productos_de_kuromi(): void
+    {
+        foreach (['/', '/catalogo', '/preguntas-frecuentes', '/envios-y-entregas'] as $ruta) {
+            $html = mb_strtolower($this->get($ruta)->assertOk()->getContent());
+
+            $this->assertStringNotContainsString('maquillaje', $html, $ruta);
+            $this->assertStringNotContainsString('moto', $html, $ruta);
+            $this->assertStringNotContainsString('labial', $html, $ruta);
+        }
     }
 
     public function test_mi_cuenta_cambia_segun_la_sesion(): void

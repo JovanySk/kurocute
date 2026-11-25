@@ -1,10 +1,10 @@
 # KuroCute: tienda y facturación en Laravel 13
 
-Tiendita de fans de Kuromi (peluches, figuras, maquillaje y motos) con un back office para pedidos, clientes, facturas, catálogo y perfiles. Los clientes y pedidos de ejemplo son ficticios; las ilustraciones y fotos son las imágenes originales del proyecto (`public/images`, `public/productos`).
+Tiendita de Kuromi (peluches, figuras, láminas y stickers) con un back office para pedidos, clientes, facturas, catálogo y perfiles. Los clientes y pedidos de ejemplo son ficticios; las ilustraciones y fotos son las imágenes originales del proyecto (`public/images`, `public/productos`).
 
-> **Aviso:** proyecto escolar de fans, sin fines comerciales. Kuromi, My Melody y sus imágenes pertenecen a sus respectivos dueños (Sanrio). Las fotos de productos de terceros se usan solo como ejemplo.
+Kuromi y sus personajes son marcas registradas de Sanrio Co., Ltd.
 
-![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-89%20passing-1f8a5e)
+![Laravel](https://img.shields.io/badge/Laravel-13.44-FF2D20) ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4) ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1) ![Tailwind](https://img.shields.io/badge/Tailwind-4.3-38BDF8) ![Vite](https://img.shields.io/badge/Vite-8.3-646CFF) ![Tests](https://img.shields.io/badge/tests-90%20passing-1f8a5e)
 
 ![Portada de la tienda](docs/screenshots/tienda-portada-claro.png)
 
@@ -30,7 +30,7 @@ Tipografías: Fredoka (titulares redondeados) y Nunito (texto), empaquetadas en 
 ## Funciones
 
 **Tienda pública**
-- Portada con collage de stickers de Kuromi, cinta animada con la galería de ilustraciones, buscador, categorías con portada y productos favoritos.
+- Portada con collage de stickers de Kuromi, cinta animada con la galería de ilustraciones, buscador, categorías con portada, productos favoritos y un banner de la colección de láminas y stickers.
 - Catálogo con búsqueda instantánea (Alpine + AJAX a `/catalogo/buscar`, con debounce), filtros por categoría, orden por precio o nombre y la URL sincronizada.
 - Vista rápida del producto en modal y ficha de producto con relacionados; fotos reales de cada producto.
 - Pedido tipo carrito (sesión): cajón lateral, cantidades limitadas por stock, confirmación sin cuenta. Al confirmar se crea el pedido, se registra o reutiliza al cliente por correo y se descuenta el stock.
@@ -91,11 +91,11 @@ php artisan serve
 ## Datos de ejemplo
 
 `DatabaseSeeder` carga los catálogos base (`CatalogosSeeder`) y `DemoSeeder`:
-3 categorías (Peluches Kuromi, Maquillaje, Motos), 18 productos con las fotos originales del proyecto (se copian al disco `public` al sembrar), 18 clientes ficticios con correos `@example.com`, unos 45 pedidos repartidos en el último año y facturas en todos los estados, con cobros en el mes en curso. Al sembrar se genera un PDF por factura (dompdf) y un XML tipo CFDI 4.0 marcado como documento de demostración sin validez fiscal.
+3 categorías de Kuromi (Peluches Kuromi, Figuras Kuromi, Láminas y stickers), 16 productos con las fotos e ilustraciones originales del proyecto (se copian al disco `public` al sembrar), 18 clientes ficticios con correos `@example.com`, unos 75 pedidos en línea repartidos en el último año (un peluche o figura y, a veces, láminas o stickers), ventas de mayoreo y facturas en todos los estados, con cobros en el mes en curso. Al sembrar se genera un PDF por factura (dompdf) y un XML tipo CFDI 4.0 marcado como documento de demostración sin validez fiscal.
 
 ## Pruebas
 
-89 pruebas (301 aserciones) con PHPUnit 13 sobre SQLite en memoria:
+90 pruebas (317 aserciones) con PHPUnit 13 sobre SQLite en memoria:
 
 - 25 originales de Breeze (registro, login, verificación de correo, contraseñas, perfil) y ejemplo.
 - `TiendaTest`: portada, búsqueda por texto y descripción, filtro por categoría y orden, productos ocultos, ficha de producto.
@@ -103,7 +103,7 @@ php artisan serve
 - `AccesoTest`: rutas protegidas (invitados al login), perfil de consulta solo lectura, administrador con acceso completo, perfil asignado al registrarse.
 - `FacturaTest`: alta con PDF/XML y correo enviado, adjuntos del correo, validación de archivos y folio, **descarga con `application/pdf`**, vista previa del correo, filtros, edición y borrado, numeración consecutiva.
 - `BackOfficeTest`: KPIs del dashboard, clientes con imagen y RFC, facturar pedidos, estados de pedido, productos y categorías, perfiles.
-- `PieDePaginaTest`: páginas de ayuda, enlaces del pie a páginas y categorías reales (sin enlaces `#`), créditos, "Mi cuenta" según la sesión y pie del back office.
+- `PieDePaginaTest`: páginas de ayuda, enlaces del pie a páginas y categorías reales (sin enlaces `#`), créditos, que la tienda solo muestre productos de Kuromi, "Mi cuenta" según la sesión y pie del back office.
 - `ContactoTest`: token CSRF en el formulario, envío del correo a la tienda con "responder a", mensaje de éxito, validación, campo trampa y contenido del correo.
 - `ImportesFacturaTest` (unit): cálculo y desglose de IVA.
 
@@ -121,7 +121,6 @@ docker compose exec app php artisan test
 | ![Facturas](docs/screenshots/admin-facturas-claro.png) | ![Formulario de factura](docs/screenshots/admin-factura-formulario-claro.png) |
 | ![Detalle de factura](docs/screenshots/admin-factura-detalle-claro.png) | ![PDF de factura](docs/screenshots/factura-pdf.png) |
 | ![Correo de factura](docs/screenshots/correo-factura.png) | ![Pedidos](docs/screenshots/admin-pedidos-claro.png) |
-
 | ![Login](docs/screenshots/login-oscuro.png) | ![Página 404](docs/screenshots/pagina-404-claro.png) |
 | ![Pie de página](docs/screenshots/tienda-pie-claro.png) | ![Pie de página oscuro](docs/screenshots/tienda-pie-oscuro.png) |
 | ![Preguntas frecuentes](docs/screenshots/ayuda-preguntas-claro.png) | ![Contacto](docs/screenshots/contacto-formulario-claro.png) |

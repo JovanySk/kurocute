@@ -3,6 +3,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="theme-color" content="#7b4397">
 <title>{{ isset($titulo) && $titulo ? $titulo.' | ' : '' }}KuroCute</title>
+<meta name="description" content="KuroCute, tu tiendita favorita de Kuromi: peluches, figuras, láminas y stickers. Hecho con mucho cariño en Tantoyuca.">
 <link rel="icon" type="image/jpeg" href="{{ asset('images/ima6.jpg') }}">
 <script>
     (function () {

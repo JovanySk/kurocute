@@ -36,7 +36,7 @@
             </div>
             <footer class="text-center text-xs font-semibold text-ink-3">
                 <p>&copy; {{ date('Y') }} KuroCute. Todos los derechos reservados.</p>
-                <p class="mt-1">Tienda desarrollada por <span class="text-ink-2">Jovany</span> <span class="px-1 text-line-strong" aria-hidden="true">&middot;</span> Kuromi &copy; Sanrio. Sitio de fans.</p>
+                <p class="mt-1">Tienda desarrollada por <span class="text-ink-2">Jovany</span> <span class="px-1 text-line-strong" aria-hidden="true">&middot;</span> Kuromi &copy; Sanrio.</p>
             </footer>
         </div>
     </div>

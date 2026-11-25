@@ -113,7 +113,7 @@
         <footer class="px-4 pb-6 sm:px-6 lg:px-8">
             <div class="mx-auto flex max-w-7xl flex-col gap-1.5 border-t-2 border-dashed border-line pt-5 text-xs font-semibold text-ink-3 sm:flex-row sm:items-center sm:justify-between">
                 <p>&copy; {{ date('Y') }} KuroCute. Todos los derechos reservados.</p>
-                <p>Tienda desarrollada por <span class="text-ink-2">Jovany</span> <span class="px-1 text-line-strong" aria-hidden="true">&middot;</span> Kuromi &copy; Sanrio. Sitio de fans.</p>
+                <p>Tienda desarrollada por <span class="text-ink-2">Jovany</span> <span class="px-1 text-line-strong" aria-hidden="true">&middot;</span> Kuromi &copy; Sanrio.</p>
             </div>
         </footer>
     </div>

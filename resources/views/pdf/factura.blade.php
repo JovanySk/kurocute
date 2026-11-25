@@ -144,7 +144,7 @@
     <div class="pie">
         <table>
             <tr>
-                <td>Gracias por tu compra. Dudas sobre esta factura: hola@example.com</td>
+                <td>¿Dudas? Escríbenos en {{ preg_replace('#^https?://#', '', route('contacto')) }}</td>
                 <td class="der">Representación impresa de demostración, sin validez fiscal.</td>
             </tr>
         </table>
